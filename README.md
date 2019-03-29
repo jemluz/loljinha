@@ -30,6 +30,9 @@ pg - drive do postgres
 
 pm2 - launcher do postgres
 
+### Comandos Backend
+
+execute 'npm start' na pasta backend
 
 ### Login PostGres
 
