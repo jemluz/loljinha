@@ -1,25 +1,26 @@
-# loljinha
+# LOLJINHA
+Trabalho para a disciplina de Programação Web I
 
 ## Dependencias do backend
 bcrypt-nodejs - criptografia de senhas
 
-body-parser": "1.18.3" - ??
+body-parser - ??
 
-consign": "0.1.6" - ??
+consign - ??
 
-cors": "2.8.4" - para permitir o request de origens diferentes
+cors - para permitir o request de origens diferentes
 
-express": "4.16.3" - para criar webservices
+express- para criar webservices
 
-jwt-simple": "0.5.1" - segurança
+jwt-simple - segurança
 
-knex": "0.15.2" - biblioteca para acesso ao banco de dados relacional
+knex - biblioteca para acesso ao banco de dados relacional
 
-moment": "2.22.2" - data
+moment - data
 
-mongoose": "^5.2.17" - acesso ao banco de dados mongo db
+mongoose - acesso ao banco de dados mongo db
 
-node-schedule": "1.3.0" - para o temporizador
+node-schedule - para o temporizador
 
 passport e passport-jwt - segurança
 
