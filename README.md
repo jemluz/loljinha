@@ -1,7 +1,9 @@
 # LOLJINHA
+
 Trabalho para a disciplina de Programação Web I
 
-## Dependencias do backend
+### Dependencias do backend
+
 bcrypt-nodejs - criptografia de senhas
 
 body-parser - ??
@@ -30,7 +32,30 @@ pm2 - launcher do postgres
 
 
 ### Login PostGres
-é a senha pedida na instalação do postgres na máquina. 
 
+é o usuário e a senha pedida na instalação do postgres na máquina. 
+
+```
 user: admin
 senha: admin
+```
+
+### Comandos Postgres (após fazer login)
+
+para criar um banco:
+
+```
+CREATE DATABASE nomedobanco;
+```
+
+para conectar-se a um banco:
+
+```
+\c nomedobanco;
+```
+
+para listar as tabelas do banco conectado:
+
+```
+\dt
+```
