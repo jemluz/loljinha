@@ -15,3 +15,8 @@
   "passport-jwt": "4.0.0" - segurança
   "pg": "7.4.3" - drive do postgres
   "pm2": "3.0.4" - launcher do postgres
+
+  ### Login PostGres
+  é a senha pedida na instalação do postgres na máquina. 
+  user: admin
+  senha: admin
