@@ -62,3 +62,7 @@ para listar as tabelas do banco conectado:
 ```
 \dt
 ```
+
+### Consign 
+
+a função do consign é organizar as dependencias para facilitar o acesso e injeta-las na aplicação
