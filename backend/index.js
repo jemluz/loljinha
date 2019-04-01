@@ -3,6 +3,20 @@
 const  app = require('express')()
 // "importando" o express
 
+const consign = require('consign')
+// importando o consign
+
+// o consign ajuda a gerneciar as dependencias dentro da aplicação, como um intermediario que vai mapea-las
+consign()
+  .then('./config/middlewares.js')
+  // carrega os middlewares para injeta-los em seguida
+  .then('./api')
+  // carrega a pasta api
+  .then('./config/routes.js')  
+  // carrega as rotas 
+  .into(app)
+  // injata-os em app
+
 app.listen(3000, () => {
   // função para escutar a porta 3000 e retornar um callback
   console.log('Backend rodando...');
