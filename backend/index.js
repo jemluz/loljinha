@@ -6,6 +6,12 @@ const  app = require('express')()
 const consign = require('consign')
 // importando o consign
 
+const db = require('./config/db')
+// imporrta o arquivo de configuração do banco de dados
+
+app.db = db
+// db é o knex já configurado para o banco de dados a ser utilizado
+
 // o consign ajuda a gerneciar as dependencias dentro da aplicação, como um intermediario que vai mapea-las
 consign()
   .then('./config/middlewares.js')
