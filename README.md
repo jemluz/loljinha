@@ -4,6 +4,16 @@ Trabalho para a disciplina de Programação Web I
 
 ### Dependencias do backend
 
+### Consign 
+
+a função do consign é organizar as dependencias para facilitar o acesso e injeta-las na aplicação
+
+### Knex 
+
+o knex atua como intermediario entre o banco de dados e a aplicação
+
+### Outras dependencias 
+
 bcrypt-nodejs - criptografia de senhas
 
 body-parser - ??
@@ -15,8 +25,6 @@ cors - para permitir o request de origens diferentes
 express- para criar webservices
 
 jwt-simple - segurança
-
-knex - biblioteca para acesso ao banco de dados relacional
 
 moment - data
 
@@ -63,6 +71,3 @@ para listar as tabelas do banco conectado:
 \dt
 ```
 
-### Consign 
-
-a função do consign é organizar as dependencias para facilitar o acesso e injeta-las na aplicação
