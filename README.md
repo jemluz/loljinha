@@ -11,6 +11,11 @@ a função do consign é organizar as dependencias para facilitar o acesso e inj
 ### Knex 
 
 o knex atua como intermediario entre o banco de dados e a aplicação
+knex init -> criação e configuração do knex file (que estabelece a conexão com o postgres)
+
+processo de criação das migrates:
+knex migrate:make para criar o arquivo de tabela .js -> configuração do arquivo de tabela -> knex migrate:latest para salvar alterações
+(é importante deixar a criação das tabelas com chave estrangeira para dps da criação das quais ela é dependente)
 
 ### Outras dependencias 
 
