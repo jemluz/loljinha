@@ -12,22 +12,72 @@ module.exports = app => {
   }
 
   const save = async (requisicao, resposta) => {
-  // metodod para inserir e alterar um usuário 
+  // metodod assíncrono para inserir e alterar um usuário 
     // resposta.send('user save')
     
-    const cliente = { ...requisicao.body }
+    const user = { ...requisicao.body }
     // no body da requisição há um json, que é interceptado pelo bodyparse, gerando um objeto 
     
-    if (requisicao.params.id) cliente.id =  req.params.id
+    if (requisicao.params.id) user.id =  req.params.id
     // verifica se um id foi passado aos parametros da requisição e o atribui para o id de user
+    // isso será usado no médoto PUT
 
     try {
     // tratamento de falhas
-      existsOrError(cliente.name, 'nome não inserido')
-      existsOrError(user.login, 'login não inserido')
-      existsOrError(user.senha, 'senha não inserida')
+      existsOrError(cliente.name, 'Nome não inserido.')
+      existsOrError(user.login, 'Login não inserido.')
+      existsOrError(user.senha, 'Senha não inserida.')
+      existsOrError(user.confirmarSenha, 'Confirmação de senha inválida.')
+      existsOrError(user.senha, user.confirmarSenha, 'Senhas não conferem.')
+
+      const userFromDB = await app.db('client').where({ login: user.login }).first()
+      // atribui a userFromDB o primeiro usuário do banco de dados onde o login corresponder ao login inserido.
+      // a expressão await (que só pode ser usada em funções assincronas) congela a execução da função até que a promisse seja entregue.
+      // app.db acessa o knex.
+
+      if (!user.id) {
+        // essa vaidaçãosó deve ser feita se o user id não estiver setado
+        notExistsOrError(userFromDB, 'Usuário já cadastrado.')
+        // o userFromDB se refere ao novo usuário que pretende ser inserido no banco de dados, por isso antes ele busca se há algum parecido com o await
+      }
+    } catch (msg) {
+       return resposta.status(400).send(msg)
+      // 400 é um erro de quem está fazendo a requisição, no caso o cliente que não inseriu os dados corretamente
     }
+
+    // se ele passou por todos os testes de validação do try, então ele pode ser inserido ou atualizado
+    user.password = encryptPass(user.password)
+    // vai criptografar a senha fornecida pelo usuário
+    delete user.confirmaPassword
+    // exclui a confirmação da senha já que ela não vai ser inserida no banco de dados
+
+    if (user.id) {
+      app.db('client')
+        .update(user)
+        .where({ id: user.id })
+        .then(_ => resposta.status(204).send())
+        .catch(err => resposta.status(500).send(err))
+      // realiza um update no banco de dados onde o id corresponder ao id inserido
+      // se deu tudo certo ele retorna 204, que é uma confirmação de sucesso mas sem conteúdo
+      // caso dê algo errado no update, ele retorna o erro 500, pois provavelmente é algum problema interno no servidor
+    } else {
+      app.db('client')
+        .insert(user)
+        .then(_ => resposta.status(204).send())
+        .catch(err => resposta.status(500).send(err))
+      // se não existe nenhum usuário no banco de dados c aquele id então é um caso de inserção de um novo usuário
+    }
+  } 
+
+  const get = (requisicao, resposta) => {
+    // metodo para obter uma lista dos usuários 
+    app.db('client')
+      .select('id', 'nome', 'login')
+      .then(users => resposta.json(users))
+      .cathc(err => resposta.status(500).send(err))
+      // faz um select na tabela de usuários retornando id nome e login
+      // se tudo der certo ele retorna o objeto json contendo oso usuários
   }
 
-  return { save }
+  return { save, get }
 } // module exports retorna um objeto com as funções do escopo 

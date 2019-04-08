@@ -16,7 +16,9 @@ app.db = db
 consign()
   .then('./config/middlewares.js')
   // carrega os middlewares para injeta-los em seguida
-  .then('./api')
+  .then('./api/validation.js')
+  // carrega as validações (pra prevenir o erro de carregar os usuários antes das validações)
+  .then('./api/user.js')
   // carrega a pasta api
   .then('./config/routes.js')  
   // carrega as rotas 
@@ -25,7 +27,7 @@ consign()
 
 app.listen(3000, () => {
   // função para escutar a porta 3000 e retornar um callback
-  console.log('Backend rodando...');
+  console.log('Backend rodando hahahah ...');
   // atenção: verifique se não há nenhum outro processo em paralelo a ser rodado na mesma porta, do contrario o beckend n irá startar.
   // se houver, aloque para outra porta que esteja livre
   // se vc rodar 2x é provavel que dê erro tbm pois já tem uma versão rodando 
