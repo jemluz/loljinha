@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt-nodejs')
 
 module.exports = app => {
   const { existsOrError, notExistsOrError, equalsOrError } = app.api.validation
+  // "importando" as funções de validação
 
   const encryptPass = password => {
     const salt = bcrypt.genSaltSync(10)
@@ -24,7 +25,7 @@ module.exports = app => {
 
     try {
     // tratamento de falhas
-      existsOrError(cliente.name, 'Nome não inserido.')
+      existsOrError(user.name, 'Nome não inserido.')
       existsOrError(user.login, 'Login não inserido.')
       existsOrError(user.senha, 'Senha não inserida.')
       existsOrError(user.confirmarSenha, 'Confirmação de senha inválida.')
