@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt-nodejs')
 
 module.exports = app => {
   const { existsOrError, notExistsOrError, equalsOrError } = app.api.validation
+  // "importando" as funções de validação
 
   const encryptPass = password => {
     const salt = bcrypt.genSaltSync(10)
@@ -18,7 +19,7 @@ module.exports = app => {
     const user = { ...requisicao.body }
     // no body da requisição há um json, que é interceptado pelo bodyparse, gerando um objeto 
     
-    if (requisicao.params.id) user.id =  req.params.id
+    if (requisicao.params.id) user.id =  requisicao.params.id
     // verifica se um id foi passado aos parametros da requisição e o atribui para o id de user
     // isso será usado no médoto PUT
 
@@ -79,5 +80,17 @@ module.exports = app => {
       // se tudo der certo ele retorna o objeto json contendo oso usuários
   }
 
-  return { save, get }
+  const getById = (requisicao, resposta) => {
+    // metodo para obter uma lista dos usuários 
+    app.db('client')
+      .select('id', 'nome', 'login')
+      .where({ id: requisicao.params.id })
+      .first()
+      .then(users => resposta.json(user))
+      .cathc(err => resposta.status(500).send(err))
+      // faz um select na tabela de usuários retornando id nome e login
+      // se tudo der certo ele retorna o objeto json contendo oso usuários
+  }
+
+  return { save, get, getById }
 } // module exports retorna um objeto com as funções do escopo 
