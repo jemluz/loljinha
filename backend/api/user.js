@@ -24,7 +24,7 @@ module.exports = app => {
 
     try {
     // tratamento de falhas
-      existsOrError(cliente.name, 'Nome não inserido.')
+      existsOrError(user.name, 'Nome não inserido.')
       existsOrError(user.login, 'Login não inserido.')
       existsOrError(user.senha, 'Senha não inserida.')
       existsOrError(user.confirmarSenha, 'Confirmação de senha inválida.')
@@ -46,15 +46,15 @@ module.exports = app => {
     }
 
     // se ele passou por todos os testes de validação do try, então ele pode ser inserido ou atualizado
-    user.password = encryptPass(user.password)
+    user.senha = encryptPass(user.senha)
     // vai criptografar a senha fornecida pelo usuário
-    delete user.confirmaPassword
+    delete user.confirmaSenha
     // exclui a confirmação da senha já que ela não vai ser inserida no banco de dados
 
     if (user.id) {
       app.db('client')
         .update(user)
-        .where({ id: user.id })
+        .where({ login: user.login })
         .then(_ => resposta.status(204).send())
         .catch(err => resposta.status(500).send(err))
       // realiza um update no banco de dados onde o id corresponder ao id inserido
@@ -72,7 +72,7 @@ module.exports = app => {
   const get = (requisicao, resposta) => {
     // metodo para obter uma lista dos usuários 
     app.db('client')
-      .select('id', 'nome', 'login')
+      .select('login', 'nome')
       .then(users => resposta.json(users))
       .cathc(err => resposta.status(500).send(err))
       // faz um select na tabela de usuários retornando id nome e login

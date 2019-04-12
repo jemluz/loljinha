@@ -76,3 +76,8 @@ para listar as tabelas do banco conectado:
 \dt
 ```
 
+para listar as colunas de uma tabela:
+
+```
+\select * from nometabela;
+```
