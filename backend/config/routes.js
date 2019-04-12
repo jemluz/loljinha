@@ -8,6 +8,7 @@ module.exports = app => {
 
   app.route('/clientes/:id')
     .put(app.api.user.save)
+    .put(app.api.user.getById)
   // o método save serve tanto para inserir quanto para alterar um usuário, por isso a diferença entre o POST e o PUT está no parâmetro fornecido na url (no caso o :id ou a ausencia dele), é assim que o método descobri qual tipo de requisição está sendo feita
 }
 
