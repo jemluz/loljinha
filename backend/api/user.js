@@ -75,7 +75,7 @@ module.exports = app => {
     app.db('client')
       .select('login', 'nome')
       .then(users => resposta.json(users))
-      .cathc(err => resposta.status(500).send(err))
+      .catch(err => resposta.status(500).send(err))
       // faz um select na tabela de usuários retornando id nome e login
       // se tudo der certo ele retorna o objeto json contendo oso usuários
   }
@@ -87,7 +87,7 @@ module.exports = app => {
       .where({ id: requisicao.params.id })
       .first()
       .then(users => resposta.json(user))
-      .cathc(err => resposta.status(500).send(err))
+      .catch(err => resposta.status(500).send(err))
       // faz um select na tabela de usuários retornando id nome e login
       // se tudo der certo ele retorna o objeto json contendo oso usuários
   }
