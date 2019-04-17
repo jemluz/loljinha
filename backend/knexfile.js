@@ -4,18 +4,18 @@
 //  nesse caso ficamos apenas com as confg de produção e dispensamos as demais
 
 module.exports = {
-  // production: {
-  client: "mysql",
+  // production: { 
+  client: 'postgresql',
   connection: {
-    database: "loljinha_db",
-    user: "root",
-    password: "password"
+    database: 'loljinha_db',
+    user:     'postgres',
+    password: 'admin'
   },
   pool: {
     min: 2,
     max: 10
   },
   migrations: {
-    tableName: "knex_migrations"
+    tableName: 'knex_migrations'
   }
 };
