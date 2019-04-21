@@ -1,5 +1,5 @@
 // função para evolução do banco de dados (controle de versões novas)
-exports.up = function(knex, Promise) {
+exports.up = function (knex, Promise) {
   return knex.schema.createTable('produto', table => {
     table.increments('id').primary().notNull()
     table.string('descricao').notNull()
@@ -8,6 +8,6 @@ exports.up = function(knex, Promise) {
   })
 };
 // função para involução do banco de dados (controle de versões novas)
-exports.down = function(knex, Promise) {
+exports.down = function (knex, Promise) {
   return knex.schema.dropTable('produto')
 };
