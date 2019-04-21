@@ -5,10 +5,10 @@
 
 module.exports = {
   // production: { 
-  client: 'postgresql',
+  client: 'mysql',
   connection: {
     database: 'loljinha_db',
-    user:     'postgres',
+    user: 'root',
     password: 'admin'
   },
   pool: {
