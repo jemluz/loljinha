@@ -18,7 +18,7 @@ consign()
   // carrega os middlewares para injeta-los em seguida
   .then('./api/validation.js')
   // carrega as validações (pra prevenir o erro de carregar os usuários antes das validações)
-  .then('./api/user.js')
+  .then('./api')
   // carrega a pasta api
   .then('./config/routes.js')  
   // carrega as rotas 
