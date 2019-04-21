@@ -1,7 +1,7 @@
 // função para evolução do banco de dados (controle de versões novas)
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('categoria', table => {
-    table.increments('id').primary
+    table.increments('id').primary().notNull()
     table.string('descricao').notNull()
   })
 };
