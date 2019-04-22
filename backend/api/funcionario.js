@@ -84,7 +84,7 @@ module.exports = app => {
     const getFuncionarioByLogin = (requisicao, resposta) => {
         // metodo para obter uma lista dos usuários 
         app.db('funcionario')
-            .select('nome', 'login', 'senha')
+            .select('nome', 'login', 'senha', 'salario')
             .where({ login: requisicao.params.login })
             .first()
             .then(funcionario => resposta.json(funcionario))
@@ -93,5 +93,20 @@ module.exports = app => {
         // se tudo der certo ele retorna o objeto json contendo oso usuários
     }
 
-    return { saveFuncionario, getFuncionario, getFuncionarioByLogin }
+    const removeFuncionario = async (requisicao, resposta) => {
+        try{
+            const rowsDeleted = await 
+            app.db('funcionario')
+                .where({ login: requisicao.params.login })
+                .del()
+            
+            existsOrError(requisicao.params.login, 'Login do funcionario não informado.')
+
+            resposta.status(204).send()
+        } catch (msg) {
+            resposta.status(400).send(msg)
+        }
+    } 
+
+    return { saveFuncionario, getFuncionario, getFuncionarioByLogin, removeFuncionario }
 } // module exports retorna um objeto com as funções do escopo 
