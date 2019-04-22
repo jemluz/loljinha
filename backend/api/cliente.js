@@ -92,5 +92,20 @@ module.exports = app => {
       // se tudo der certo ele retorna o objeto json contendo oso usuários
   }
 
-  return { saveCliente, getCliente, getClienteByLogin }
+  const removeCliente = async (requisicao, resposta) => {
+    try{
+      const rowsDeleted = await 
+      app.db('cliente')
+        .where({ login: requisicao.params.login })
+        .del()
+        
+      existsOrError(requisicao.params.login, 'Login do cliente não informado.')
+
+      resposta.status(204).send()
+    } catch (msg) {
+      resposta.status(400).send(msg)
+    }
+  }
+
+  return { saveCliente, getCliente, getClienteByLogin, removeCliente }
 } // module exports retorna um objeto com as funções do escopo 
