@@ -14,6 +14,7 @@ app.db = db
 
 // o consign ajuda a gerneciar as dependencias dentro da aplicação, como um intermediario que vai mapea-las
 consign()
+  .include('./config/passport.js')
   .then('./config/middlewares.js')
   // carrega os middlewares para injeta-los em seguida
   .then('./api/validation.js')
