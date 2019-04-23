@@ -98,10 +98,13 @@ module.exports = app => {
       app.db('cliente')
         .where({ login: requisicao.params.login })
         .del()
+      // remove baseado no login inserido na url
         
       existsOrError(requisicao.params.login, 'Login do cliente não informado.')
+      // tratamento de falhas
 
       resposta.status(204).send()
+      // se o delete deu certo retorna um Sucess No Content
     } catch (msg) {
       resposta.status(400).send(msg)
     }
