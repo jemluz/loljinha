@@ -13,7 +13,7 @@ module.exports = app => {
 
       const funcionarioFromDB = await 
         app.db('Categoria')
-          .where({ id: categoria.id })
+          .where({ descricao: categoria.descricao })
           .first()
 
       if (!categoria.id) {
@@ -60,9 +60,9 @@ module.exports = app => {
     try{
       existsOrError(requisicao.params.id, 'Código da categoria não informado.')
       
-      const produtos = await app.db('produtos')
+      const produtos = await app.db('produto')
         .where({ categoriaId: requisicao.params.id})
-      notExistsOrError(produtos, 'Essa categoria ainda possuí produtos vinculados.')
+      notExistsOrError(produtos, 'Essa categoria está vinculada a produtos e não pode ser excluida.')
      
       const rowsDeleted = await app.db('categoria')
         .where({ id: requisicao.params.id })
