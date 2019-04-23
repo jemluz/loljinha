@@ -4,18 +4,22 @@ module.exports = app => {
   const { existsOrError, notExistsOrError, equalsOrError } = app.api.validation
 
   const saveCategoria = async (requisicao, resposta) => {
-
     const categoria = { ...requisicao.body }
 
     if (requisicao.params.id) categoria.id = requisicao.params.id
 
     try {
       existsOrError(categoria.descricao, 'Descrição não inserida.')
-      // const funcionarioFromDB = await app.db('categoria').where({ id: categoria.id }).first()
 
-      // if (!categoria.id) {
-      //   notExistsOrError(funcionarioFromDB, 'categoria já cadastrada.')
-      // }
+      const funcionarioFromDB = await 
+        app.db('Categoria')
+          .where({ id: categoria.id })
+          .first()
+
+      if (!categoria.id) {
+        notExistsOrError(funcionarioFromDB, 'Categoria já cadastrada.')
+      }
+
     } catch (msg) {
       return resposta.status(400).send(msg)
     }
@@ -52,5 +56,25 @@ module.exports = app => {
       .catch(err => resposta.status(500).send(err))
   }
 
-  return { saveCategoria, getCategoria, getCategoriaById }
+  const removeCategoria = async (requisicao, resposta) => {
+    try{
+      existsOrError(requisicao.params.id, 'Código da categoria não informado.')
+      
+      const produtos = await app.db('produtos')
+        .where({ categoriaId: requisicao.params.id})
+      notExistsOrError(produtos, 'Essa categoria ainda possuí produtos vinculados.')
+     
+      const rowsDeleted = await app.db('categoria')
+        .where({ id: requisicao.params.id })
+        .del()
+      existsOrError(rowsDeleted, 'Categoria não encontrada')
+
+      resposta.status(204).send()
+
+    } catch (msg) {
+      resposta.status(400).send(msg) 
+    }
+  }
+
+  return { saveCategoria, getCategoria, getCategoriaById, removeCategoria }
 }
