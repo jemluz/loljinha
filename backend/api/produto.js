@@ -1,19 +1,19 @@
 module.exports = app => {
   const { existsOrError, notExistsOrError, equalsOrError } = app.api.validation
 
-  const save = async (requisicao, resposta) => {
+  const saveProduto = async (requisicao, resposta) => {
     const produto = { ...requisicao.body }
 
-    if(requisicao.params.id) produto = requisicao.params.id
+    if(requisicao.params.id) produto.id = requisicao.params.id
     
     try {
-      existsOrError(produto.descricao, 'Descrição não informada')
-      existsOrError(produto.preco, 'Preço não informado')
-      existsOrError(produto.categoriaId, 'Categoria não informada')
+      existsOrError(produto.descricao, 'Descrição não inserida.')
+      existsOrError(produto.preco, 'Preço não inserido.')
+      existsOrError(produto.categoriaId, 'Categoria não inserida.')
 
       const produtoFromDB = await 
       app.db('produto')
-        .where({ id: produto.id })
+        .where({ desscricao: produto.desscricao })
         .first()
 
       if (!produto.id) {
@@ -40,22 +40,24 @@ module.exports = app => {
   const getProduto = (requisicao, resposta) => {
     app.db('produto')
       .select('id', 'descricao', 'preco', 'categoriaId')
-      .then(categorias => resposta.json(produto))
+      .then(produtos => resposta.json(produtos))
       .catch(err => resposta.status(500).send(err))
 
   }
 
   const getProdutoById = (requisicao, resposta) => {
-    app.db('categoria')
+    app.db('produto')
       .select('id', 'descricao', 'preco', 'categoriaId')
       .where({ id: requisicao.params.id })
       .first()
-      .then(categoria => resposta.json(produto))
+      .then(produto => resposta.json(produto))
       .catch(err => resposta.status(500).send(err))
   }
 
   const removeProduto = async (requisicao, resposta) => {
     try{
+      existsOrError(requisicao.params.id, 'Código do produto não informado.')
+
       const rowsDeleted = await 
       app.db('produto')
         .where({ id: requisicao.params.id })
@@ -69,4 +71,5 @@ module.exports = app => {
     }
   }
 
+  return { saveProduto, getProduto, getProdutoById, removeProduto }
 }

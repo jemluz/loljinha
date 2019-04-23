@@ -31,13 +31,13 @@ module.exports = app => {
     .delete(app.api.categoria.removeCategoria)
 
   app.route('/produtos')
-    .post(app.api.categoria.saveCategoria)
-    .get(app.api.categoria.getCategoria)
+    .post(app.api.produto.saveProduto)
+    .get(app.api.produto.getProduto)
 
   app.route('/produtos/:id')
-    .put(app.api.categoria.saveCategoria)
-    .get(app.api.categoria.getCategoriaById)
-    .delete(app.api.categoria.removeCategoria)
+    .put(app.api.produto.saveProduto)
+    .get(app.api.produto.getProdutoById)
+    .delete(app.api.produto.removeProduto)
 
 }
 

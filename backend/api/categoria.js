@@ -11,13 +11,13 @@ module.exports = app => {
     try {
       existsOrError(categoria.descricao, 'Descrição não inserida.')
 
-      const funcionarioFromDB = await 
+      const categoriaFromDB = await 
         app.db('Categoria')
           .where({ descricao: categoria.descricao })
           .first()
 
       if (!categoria.id) {
-        notExistsOrError(funcionarioFromDB, 'Categoria já cadastrada.')
+        notExistsOrError(categoriaFromDB, 'Categoria já cadastrada.')
       }
 
     } catch (msg) {
