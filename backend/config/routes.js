@@ -9,6 +9,7 @@ module.exports = app => {
   app.route('/clientes/:login')
     .put(app.api.cliente.saveCliente)
     .get(app.api.cliente.getClienteByLogin)
+    .delete(app.api.cliente.removeCliente)
   // o método save serve tanto para inserir quanto para alterar um usuário, por isso a diferença entre o POST e o PUT está no parâmetro fornecido na url (no caso o :id ou a ausencia dele), é assim que o método descobri qual tipo de requisição está sendo feita
 
   app.route('/funcionarios')
@@ -18,6 +19,7 @@ module.exports = app => {
   app.route('/funcionarios/:login')
     .put(app.api.funcionario.saveFuncionario)
     .get(app.api.funcionario.getFuncionarioByLogin)
+    .delete(app.api.funcionario.removeFuncionario)
 
   app.route('/categorias')
     .post(app.api.categoria.saveCategoria)
@@ -26,7 +28,16 @@ module.exports = app => {
   app.route('/categorias/:id')
     .put(app.api.categoria.saveCategoria)
     .get(app.api.categoria.getCategoriaById)
+    .delete(app.api.categoria.removeCategoria)
 
+  app.route('/produtos')
+    .post(app.api.categoria.saveCategoria)
+    .get(app.api.categoria.getCategoria)
+
+  app.route('/produtos/:id')
+    .put(app.api.categoria.saveCategoria)
+    .get(app.api.categoria.getCategoriaById)
+    .delete(app.api.categoria.removeCategoria)
 
 }
 
