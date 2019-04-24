@@ -1,44 +1,56 @@
 <template lang="pug">
-  nav(class="menu-nav" v-show="isMenuVisible")
-    router-link(to="/", class="home-a" @click="toggleLines") Home
-    router-link(to="/quem-somos", class="qm-a" @click="toggleLines()") Quem Somos
-    router-link(to="/portfolio", class="port-a") Portfolio
-    router-link(to="/blog", class="blog-a") Blog
-    router-link(to="/contato", class="contato-a") Contato
+  nav(class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner")
+    div(class="container-fluid")
+      div(class="d-flex align-items-center")
+        
+        div(class="site-logo mr-auto w-25")
+          router-link(to="/home") Loljinha ;) CRUD
 
-    svg(height="2" id='h1' v-if="!isHome")
-      line(x1="180" transform="translate(1 1)" fill="none" stroke="#FE6A6A" stroke-linecap="round" stroke-width="2")
-    svg(height="2" id='h2' v-if="isHome")
-      line(x1="30%" transform="translate(1 1)" fill="none" stroke="#333" stroke-linecap="round" stroke-width="2" opacity="0.6")
-    
-    svg(height="2" id='q1' v-show="!isQuem")
-      line(x1="120" transform="translate(1 1)" fill="none" stroke="#FE6A6A" stroke-linecap="round" stroke-width="2")
-    svg(height="2" id='q2' v-show="isQuem")
-      line(x1="30%" transform="translate(1 1)" fill="none" stroke="#333" stroke-linecap="round" stroke-width="2" opacity="0.6")
-  </nav>
+        div(class="mx-auto text-center")
+          nav(class="site-navigation position-relative text-right" role="navigation")
+            ul(class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0")
+              li 
+                a(href="#create-section", class="nav-link") Create
+              li 
+                a(href="#read-section", class="nav-link") Read
+              li 
+                a(href="#update-section", class="nav-link") Update
+              li 
+                a(href="#delete-section", class="nav-link") Delete
+                
+        div(class="ml-auto w-25")
+          nav( class="site-navigation position-relative text-right" role="navigation")
+            ul(class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0")
+              li(class="cta")
+                router-link(to="#home-section", class="nav-link")
+                  span Ver Dados
+
+          router-link(to="#", class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right") 
+            span(class="icon-menu h3")
+
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   name: "Menu",
-  computed: mapState(['isMenuVisible']),
+  computed: mapState(["isMenuVisible"]),
   data() {
     return {
       isHome: true,
       isQuem: false
-    }
+    };
   },
   methods: {
-    toggleLineHome (e) {
+    toggleLineHome(e) {
       // this.isHome = !this.isHome
       // console.log('isHome = ' + this.isHome)
       // console.log('isQuem = ' + this.isQuem)
-      console.log(e)
+      console.log(e);
     }
   }
-}
+};
 </script>
 
 <style lang="scss">

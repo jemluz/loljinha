@@ -1,9 +1,10 @@
 <template lang="pug">
-  header(class="site-navbar py-4 js-sticky-header site-navbar-target",role="banner")
-    div.container-fluid
-      div(class="d-flex align-items-center")
-      div(class="site-logo mr-auto w-25")
-        router-link(to="/home", class="port-a") Loljinha ;)
+  div(class="site-mobile-menu site-navbar-target")
+    div(class="site-mobile-menu-header")
+      div(class="site-mobile-menu-close mt-3")
+        span(class="icon-close2 js-menu-toggle")
+
+    div(class="site-mobile-menu-body")
 
 </template>
 

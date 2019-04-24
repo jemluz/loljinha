@@ -1,11 +1,15 @@
 <template lang="pug">
   .content
     <router-view></router-view>
+    CreateData
 </template>
 
 <script>
-export default {
+import CreateData from "@/components/sections/CreateData";
 
+export default {
+  name: 'Content',
+  components: { CreateData }
 }
 </script>
 
