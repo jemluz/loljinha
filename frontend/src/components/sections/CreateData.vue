@@ -67,8 +67,32 @@
 </template>
 
 <script>
+import { baseApiUrl } from '@/global'
+import axios from 'axios'
+// o axios é responsável por enviar requisições da view
+
 export default {
-  name: 'CreateData'
+  name: 'CreateData',
+  data: function() {
+    return {
+      mode: 'save', 
+      cliente: {},
+      clientes: []
+    }
+  },
+  methods: {
+    loadClientes() {
+      const url = `${baseApiUrl}/clientes`
+      axios.get(url).then(resposta => {
+        this.clientes = resposta.data
+        console.log(this.clientes)
+      })
+    }
+  },
+  mounted() {
+    // executado após o carregamento do componente
+    this.loadClientes()
+  }
 }
 </script>
 
