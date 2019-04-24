@@ -1,10 +1,9 @@
 <template lang="pug">
-  header
-    p(class="toggle display-mob-only" @click="toggleMenu" v-if="!hideToggle" v-show="isCloseIcon") Nave 
-    div(class="toggle bt-close display-mob-only" @click="toggleMenu" v-if="!hideToggle" v-show="!isCloseIcon")
-      include ../../assets/close-menu.svg
-    div(class="logo" v-show="!isCloseIcon")
-      include ../../assets/logo.svg
+  header(class="site-navbar py-4 js-sticky-header site-navbar-target",role="banner")
+    div.container-fluid
+      div(class="d-flex align-items-center")
+      div(class="site-logo mr-auto w-25")
+        router-link(to="/home", class="port-a") Loljinha ;)
 
 </template>
 
@@ -26,42 +25,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../styles/variables";
-
 header {
-  width: 100vw;
-  position: fixed;
-  display: grid;
-  z-index: 99;
-
-  @media only screen and (max-width: 900px) {
-    font-size: 14px;
-    height: 40vh;
-    z-index: 99;
-
-    grid-template-columns: 33.33% 33.33% 33.33%;
-    grid-template-rows: 40% 60%;
-    p, .bt-close {
-      grid-column: 3 / 4;
-      grid-row: 1;
-      justify-self: center;
-      align-self: center;
-    }
-    .logo {
-      grid-column: 2 / 3;
-      grid-row: 2;
-      justify-self: center;
-      // align-self: center;
-    }
-    #logo-container {
-      height: 14vh;
-    }
-  } // mobile
-
-  @media only screen and (min-width: 901px) {
-    font-size: 14px;
-    height: 40vh;
-    z-index: 2;
-  } // desktop
 }
 </style>

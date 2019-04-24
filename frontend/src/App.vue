@@ -24,18 +24,4 @@ export default {
 
 
 <style lang="scss">
-@import "./styles/reset";
-@import "./styles/variables";
-
-#app {
-  font-family: 'Exo', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#colorBlindSVG {
-  display: none;
-}
 </style>
