@@ -10,13 +10,13 @@
           nav(class="site-navigation position-relative text-right" role="navigation")
             ul(class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0")
               li 
-                a(href="#create-section", class="nav-link") Create
+                a(href="#create-section", class="nav-link") Cliente
               li 
-                a(href="#read-section", class="nav-link") Read
+                a(href="#read-section", class="nav-link") Funcionário
               li 
-                a(href="#update-section", class="nav-link") Update
+                a(href="#update-section", class="nav-link") Categoria
               li 
-                a(href="#delete-section", class="nav-link") Delete
+                a(href="#delete-section", class="nav-link") Produto
                 
         div(class="ml-auto w-25")
           nav( class="site-navigation position-relative text-right" role="navigation")
