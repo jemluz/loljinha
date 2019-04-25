@@ -2,7 +2,10 @@ import Vue from 'vue'
 import Toasted from 'vue-toasted'
 
 Vue.use(Toasted, {
-  duration: 3000
+  duration: 3000,
+  iconPack: 'fontawesome',
+  position: "bottom-left", 
+  theme: "bubble"
 })
 
 Vue.toasted.register(
