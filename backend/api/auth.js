@@ -36,7 +36,7 @@ module.exports = app => {
       login: cliente.login,
       nome: cliente.nome,
       iat: now,
-      exp: now + (60 * 1)
+      exp: now + (60 * 60 * 24 * 3)
       // iat corresponde à "issued at" ou "emitido em"
       // exp corresponde ao valor da emissão acrescido de 3 dias ( segundos * minutos * horas * dias )
     }
