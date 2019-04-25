@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './config/router'
 import store from './config/store'
-import msgs from './config/msgs'
+import './config/msgs'
 
 Vue.config.productionTip = false
 
