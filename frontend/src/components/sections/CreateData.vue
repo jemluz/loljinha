@@ -24,8 +24,6 @@
               )
 
                 form(
-                  action="" 
-                  method="post" 
                   class="form-box"
                 )
                   h3(class="h4 text-black mb-4") Cadastrar Cliente
@@ -40,7 +38,7 @@
 
                   div.form-group
                     input(
-                      type="password" 
+                      type="text" 
                       class="form-control" 
                       placeholder="...e o login!"
                       v-model='cliente.login'
@@ -64,15 +62,30 @@
 
                   div.form-group
                     input(
-                      type="submit" 
+                      type='button'
                       class="btn btn-primary btn-pill" 
+                      v-if="mode === 'save'"
+                      @click="save"
                       value="Criar cadastro"
+                    )
+                    input(
+                      type='button'
+                      class="btn btn-primary btn-pill" 
+                      v-if="mode === 'remove'"
+                      @click="remove"
+                      value="Excluir cadastro"
+                    )              
+                    input(
+                      type='button'
+                      class="btn btn-dark danger ml-3 btn-pill" 
+                      @click="reset"
+                      value="limpar"                     
                     )
 
 </template>
 
 <script>
-import { baseApiUrl } from '@/global'
+import { baseApiUrl, showError } from '@/global'
 import axios from 'axios'
 // o axios é responsável por enviar requisições da view
 
@@ -93,11 +106,48 @@ export default {
   },
   methods: {
     loadClientes() {
+      // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
       const url = `${baseApiUrl}/clientes`
       axios.get(url).then(resposta => {
         this.clientes = resposta.data
-        console.log(this.clientes)
+        // console.log(this.clientes)
       })
+    },
+    reset() {
+      // reseta o modo para 'save' e o usuário atual, carregando os clientes em seguida
+      this.mode = 'save'
+      this.cliente = {}
+      this.loadClientes()
+    },
+    save() {
+      /* 
+        Usa a variável method para fazer a distinção entre os metodos POST e PUT a partir do id do usuário
+        (se tem id é PUT, se não tem é POST).
+        
+        Se houver um ID, será utilizado para atribuir a variavel id o restante da url PUT.
+        
+        A variável method usada dentro de [ ] - cahamada de um metodo a partir de uma string - determina tbm qual será o tipo de função axios que será utilizada para fazer a requisição, passando como parametro a url eo o cliente em questao.
+        
+        Se a requisição for bem sucedida, irá aparecer um toasted de sucesso na tela, e em seguida o metodo reset é chamado, renderizando a nova lista de usuários, se não retorna um toasted com a mensagem de erro tratada.
+      */
+      const method = this.cliente.id ? 'put' : 'post'
+      const id = this.cliente.id ? `/${ this.cliente.id }` : ''
+      axios[method](`${baseApiUrl}/clientes${id}`, this.cliente)
+        .then(() => { 
+          this.$toasted.global.defaultSucess()
+          this.reset()
+        })
+        .catch(showError)
+    },
+    remove() {
+      // é uma função mais simples que o save(), que faz uma requisição axios do tipo delete passando a url com o id
+      const id = this.cliente.id
+      axios.delete(`${baseApiUrl}/clientes${id}`)
+        .then(() => {
+          this.$toasted.global.defaultSucess()
+          this.reset()
+        })
+        .catch(showError)
     }
   },
   mounted() {
