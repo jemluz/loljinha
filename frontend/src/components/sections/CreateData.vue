@@ -35,6 +35,7 @@
                       type="text" 
                       class="form-control" 
                       placeholder="Seu nome aqui :)"
+                      v-model='cliente.nome'
                     )
 
                   div.form-group
@@ -42,6 +43,7 @@
                       type="password" 
                       class="form-control" 
                       placeholder="...e o login!"
+                      v-model='cliente.login'
                     )
 
                   div.form-group
@@ -49,6 +51,7 @@
                       type="password" 
                       class="form-control" 
                       placeholder="Ah! Tem a senha também."
+                      v-model='cliente.senha'
                     )
 
                   div.form-group
@@ -56,6 +59,7 @@
                       type="password" 
                       class="form-control" 
                       placeholder="Pode repetir a senha?"
+                      v-model='cliente.confirmarSenha'
                     )
 
                   div.form-group
@@ -64,6 +68,7 @@
                       class="btn btn-primary btn-pill" 
                       value="Criar cadastro"
                     )
+
 </template>
 
 <script>
@@ -77,7 +82,13 @@ export default {
     return {
       mode: 'save', 
       cliente: {},
-      clientes: []
+      clientes: [],
+      fields: [
+        { key: 'login', label: 'Login', sortable: true},
+        { key: 'nome', label: 'Nome', sortable: true },
+        { key: 'senha', label: 'Senha', sortable: true},
+        { key: 'actions', label: 'Ações'}
+      ]
     }
   },
   methods: {
@@ -101,5 +112,11 @@ export default {
   background-image: url('../../../public/images/hero_1.jpg'); 
   background-repeat: no-repeat; 
   background-attachment: fixed;
+}
+
+.data-table{
+  margin-bottom: 20vh;
+  background-color: white;
+
 }
 </style>
