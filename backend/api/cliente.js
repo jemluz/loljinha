@@ -19,7 +19,7 @@ module.exports = app => {
     const cliente = { ...requisicao.body }
     // no body da requisição há um json, que é interceptado pelo bodyparse, gerando um objeto 
     
-    if (requisicao.params.id) cliente.id =  requisicao.params.id
+    if (requisicao.params.login) cliente.login =  requisicao.params.login
     // verifica se um id foi passado aos parametros da requisição e o atribui para o id de cliente
     // isso será usado no médoto PUT
 
@@ -29,14 +29,14 @@ module.exports = app => {
       existsOrError(cliente.login, 'Login não inserido.')
       existsOrError(cliente.senha, 'Senha não inserida.')
       existsOrError(cliente.confirmarSenha, 'Confirmação de senha inválida.')
-      existsOrError(cliente.senha, cliente.confirmarSenha, 'Senhas não conferem.')
+      equalsOrError(cliente.senha, cliente.confirmarSenha, 'Senhas não conferem.')
 
       const clienteFromDB = await app.db('cliente').where({ login: cliente.login }).first()
       // atribui a clienteFromDB o primeiro usuário do banco de dados onde o login corresponder ao login inserido.
       // a expressão await (que só pode ser usada em funções assincronas) congela a execução da função até que a promisse seja entregue.
       // app.db acessa o knex.
 
-      if (!cliente.id) {
+      if (!cliente.login) {
         // essa vaidaçãosó deve ser feita se o cliente id não estiver setado
         notExistsOrError(clienteFromDB, 'Cliente já cadastrado.')
         // o clienteFromDB se refere ao novo usuário que pretende ser inserido no banco de dados, por isso antes ele busca se há algum parecido com o await
@@ -52,7 +52,7 @@ module.exports = app => {
     delete cliente.confirmarSenha
     // exclui a confirmação da senha já que ela não vai ser inserida no banco de dados
 
-    if (cliente.id) {
+    if (cliente.login) {
       app.db('cliente')
         .update(cliente)
         .where({ login: cliente.login })
