@@ -1,6 +1,6 @@
 <template lang='pug'>
   div.intro-section#create-section
-    div.slide-1
+    div.slide-1 
       div.container
         div(class="row align-items-center")
           div.col-12
@@ -19,7 +19,8 @@
                   ) Aqui na loljinha nossos clientes possuem nome, login e senha. #[br] Experimente iserir esses dados no cadastro!
 
               div(
-                class="col-lg-5 ml-auto"               data-aos="fade-up" 
+                class="col-lg-5 ml-auto"               
+                data-aos="fade-up" 
                 data-aos-delay="500"
               )
 
@@ -34,6 +35,8 @@
                       class="form-control" 
                       placeholder="Seu nome aqui :)"
                       v-model='cliente.nome'
+                      :readonly='mode === "remove"'
+                      required
                     )
 
                   div.form-group
@@ -42,6 +45,8 @@
                       class="form-control" 
                       placeholder="...e o login!"
                       v-model='cliente.login'
+                      :readonly='mode === "remove"'
+                      required
                     )
 
                   div.form-group
@@ -50,6 +55,8 @@
                       class="form-control" 
                       placeholder="Ah! Tem a senha também."
                       v-model='cliente.senha'
+                      :readonly='mode === "remove"'
+                      required
                     )
 
                   div.form-group
@@ -58,6 +65,8 @@
                       class="form-control" 
                       placeholder="Pode repetir a senha?"
                       v-model='cliente.confirmarSenha'
+                      :readonly='mode === "remove"'
+                      required
                     )
 
                   div.form-group
@@ -70,7 +79,7 @@
                     )
                     input(
                       type='button'
-                      class="btn btn-primary btn-pill" 
+                      class="btn btn-danger btn-pill" 
                       v-if="mode === 'remove'"
                       @click="remove"
                       value="Excluir cadastro"
@@ -79,8 +88,33 @@
                       type='button'
                       class="btn btn-dark danger ml-3 btn-pill" 
                       @click="reset"
-                      value="limpar"                     
+                      value="limpar"        
+                      data-aos="fade-left" 
                     )
+
+    table(
+      class='data-table col-lg-12 form-box'
+      data-aos="fade-down" 
+      data-aos-delay="0"
+    )
+      tr.top
+        th.pd-top Nome
+        th.pd-top Login
+        th.pd-top Senha Codificada
+        th.pd-top Ações
+      tr(v-for="cliente in clientes", class='data-tr')
+        th.pd-left {{ cliente.nome }}
+        th.pd-left {{ cliente.login }}
+        th.pd-left.pd-right {{ cliente.senha }}
+        th.pd-top   
+          button(
+            @click='loadCliente(cliente, "save", true)'
+            class='mr-2'
+          ) #[i(class='fa fa-pencil')]
+          button(
+            @click="loadCliente(cliente, 'remove', false)" 
+            class='mr-2'
+          ) #[i(class='fa fa-trash')]
 
 </template>
 
@@ -96,27 +130,29 @@ export default {
       mode: 'save', 
       cliente: {},
       clientes: [],
-      fields: [
-        { key: 'login', label: 'Login', sortable: true},
-        { key: 'nome', label: 'Nome', sortable: true },
-        { key: 'senha', label: 'Senha', sortable: true},
-        { key: 'actions', label: 'Ações'}
-      ]
+      edit: false
     }
   },
   methods: {
+    loadCliente(cliente, mode = 'save', edit = 'false') {
+      this.mode = mode
+      this.edit = edit
+      this.cliente = { ...cliente }
+      console.log(this.mode + ' ' + this.edit)
+    },
     loadClientes() {
       // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
       const url = `${baseApiUrl}/clientes`
       axios.get(url).then(resposta => {
         this.clientes = resposta.data
-        // console.log(this.clientes)
+        console.log(this.clientes, this.edit)
       })
     },
     reset() {
       // reseta o modo para 'save' e o usuário atual, carregando os clientes em seguida
       this.mode = 'save'
       this.cliente = {}
+      this.edit = false
       this.loadClientes()
     },
     save() {
@@ -129,10 +165,19 @@ export default {
         A variável method usada dentro de [ ] - cahamada de um metodo a partir de uma string - determina tbm qual será o tipo de função axios que será utilizada para fazer a requisição, passando como parametro a url eo o cliente em questao.
         
         Se a requisição for bem sucedida, irá aparecer um toasted de sucesso na tela, e em seguida o metodo reset é chamado, renderizando a nova lista de usuários, se não retorna um toasted com a mensagem de erro tratada.
+
+        const method = 'post'
+      if (this.edit) { 
+        this.method = 'put'
+      } else { 
+        this.method = 'post'
+      }
+      console.log('é um ' + this.method + this.edit)
+
       */
-      const method = this.cliente.id ? 'put' : 'post'
-      const id = this.cliente.id ? `/${ this.cliente.id }` : ''
-      axios[method](`${baseApiUrl}/clientes${id}`, this.cliente)
+      const method = this.edit ? 'put' : 'post'
+      const login = this.cliente.login ? `/${ this.cliente.login }` : ''
+      axios[method](`${baseApiUrl}/clientes${login}`, this.cliente)
         .then(() => { 
           this.$toasted.global.defaultSucess()
           this.reset()
@@ -141,8 +186,8 @@ export default {
     },
     remove() {
       // é uma função mais simples que o save(), que faz uma requisição axios do tipo delete passando a url com o id
-      const id = this.cliente.id
-      axios.delete(`${baseApiUrl}/clientes${id}`)
+      const login = this.cliente.login
+      axios.delete(`${baseApiUrl}/clientes/${login}`)
         .then(() => {
           this.$toasted.global.defaultSucess()
           this.reset()
@@ -165,8 +210,25 @@ export default {
 }
 
 .data-table{
+  width: 100%;
   margin-bottom: 20vh;
   background-color: white;
-
 }
+
+.top {
+  background-color: #7971ea;
+  box-shadow: 10px 0px 5px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+.pd-top { padding: 20px 40px; }
+.pd-left { padding-left:  40px; }
+.pd-right { padding-right:  40px; }
+
+.data-tr { 
+  color: black; 
+  font-size: 18px;
+  opacity: .6;
+}
+
 </style>
