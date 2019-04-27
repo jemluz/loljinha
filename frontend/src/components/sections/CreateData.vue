@@ -106,15 +106,15 @@
         th.pd-left {{ cliente.nome }}
         th.pd-left {{ cliente.login }}
         th.pd-left.pd-right {{ cliente.senha }}
-        th.pd-top   
+        th.pd-top.pd-right   
           button(
             @click='loadCliente(cliente, "save", true)'
-            class='mr-2'
-          ) #[i(class='fa fa-pencil')]
+            class='mr-2 bt-edit'
+          ) #[i(class='fa fa-pencil fa-lg')]
           button(
             @click="loadCliente(cliente, 'remove', false)" 
-            class='mr-2'
-          ) #[i(class='fa fa-trash')]
+            class='mr-2 bt-remove'
+          ) #[i(class='fa fa-trash fa-lg')]
 
 </template>
 
@@ -134,7 +134,7 @@ export default {
     }
   },
   methods: {
-    loadCliente(cliente, mode = 'save', edit = 'false') {
+    loadCliente(cliente, mode = 'save', edit = 'true') {
       this.mode = mode
       this.edit = edit
       this.cliente = { ...cliente }
@@ -176,7 +176,9 @@ export default {
 
       */
       const method = this.edit ? 'put' : 'post'
-      const login = this.cliente.login ? `/${ this.cliente.login }` : ''
+      const login = this.edit ? `/${ this.cliente.login }` : ''
+      console.log(method + login)
+      console.log(this.cliente)
       axios[method](`${baseApiUrl}/clientes${login}`, this.cliente)
         .then(() => { 
           this.$toasted.global.defaultSucess()
@@ -229,6 +231,17 @@ export default {
   color: black; 
   font-size: 18px;
   opacity: .6;
+}
+
+.bt-edit,
+.bt-remove {
+  background: none;
+  border: none;
+  color:  #7971ea;
+}
+
+.bt-remove {
+  color:  #eb1c0f;
 }
 
 </style>

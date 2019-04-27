@@ -31,16 +31,16 @@ module.exports = app => {
       existsOrError(cliente.confirmarSenha, 'Confirmação de senha inválida.')
       equalsOrError(cliente.senha, cliente.confirmarSenha, 'Senhas não conferem.')
 
-      const clienteFromDB = await app.db('cliente').where({ login: cliente.login }).first()
+      // const clienteFromDB = await app.db('cliente').where({ login: cliente.login }).first()
       // atribui a clienteFromDB o primeiro usuário do banco de dados onde o login corresponder ao login inserido.
       // a expressão await (que só pode ser usada em funções assincronas) congela a execução da função até que a promisse seja entregue.
       // app.db acessa o knex.
 
-      if (!cliente.login) {
+      // if (clienteFromDB) {
         // essa vaidaçãosó deve ser feita se o cliente id não estiver setado
-        notExistsOrError(clienteFromDB, 'Cliente já cadastrado.')
+        // notExistsOrError(clienteFromDB, 'Cliente já cadastrado.')
         // o clienteFromDB se refere ao novo usuário que pretende ser inserido no banco de dados, por isso antes ele busca se há algum parecido com o await
-      }
+      // }
     } catch (msg) {
        return resposta.status(400).send(msg)
       // 400 é um erro de quem está fazendo a requisição, no caso o cliente que não inseriu os dados corretamente
@@ -52,7 +52,12 @@ module.exports = app => {
     delete cliente.confirmarSenha
     // exclui a confirmação da senha já que ela não vai ser inserida no banco de dados
 
-    if (cliente.login) {
+    const clienteFromDB = await app.db('cliente').where({ login: cliente.login }).first()
+    // atribui a clienteFromDB o primeiro usuário do banco de dados onde o login corresponder ao login inserido.
+    // a expressão await (que só pode ser usada em funções assincronas) congela a execução da função até que a promisse seja entregue.
+    // app.db acessa o knex.
+
+    if (clienteFromDB) {
       app.db('cliente')
         .update(cliente)
         .where({ login: cliente.login })
