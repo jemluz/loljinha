@@ -19,7 +19,7 @@ module.exports = app => {
         const funcionario = { ...requisicao.body }
         // no body da requisição há um json, que é interceptado pelo bodyparse, gerando um objeto 
 
-        if (requisicao.params.id) funcionario.id = requisicao.params.id
+        if (requisicao.params.login) funcionario.login = requisicao.params.login
         // verifica se um id foi passado aos parametros da requisição e o atribui para o id de funcionario
         // isso será usado no médoto PUT
 
@@ -29,19 +29,19 @@ module.exports = app => {
             existsOrError(funcionario.login, 'Login não inserido.')
             existsOrError(funcionario.senha, 'Senha não inserida.')
             existsOrError(funcionario.confirmarSenha, 'Confirmação de senha inválida.')
-            existsOrError(funcionario.senha, funcionario.confirmarSenha, 'Senhas não conferem.')
-            existsOrError(funcionario.salario, 'Salário não é válido')
+            equalsOrError(funcionario.senha, funcionario.confirmarSenha, 'Senhas não conferem.')
+            existsOrError(funcionario.salario, 'Salário não inserido.')
 
-            const funcionarioFromDB = await app.db('funcionario').where({ login: funcionario.login }).first()
+            // const funcionarioFromDB = await app.db('funcionario').where({ login: funcionario.login }).first()
             // atribui a funcionarioFromDB o primeiro usuário do banco de dados onde o login corresponder ao login inserido.
             // a expressão await (que só pode ser usada em funções assincronas) congela a execução da função até que a promisse seja entregue.
             // app.db acessa o knex.
 
-            if (!funcionario.id) {
+            // if (!funcionario.id) {
                 // essa vaidaçãosó deve ser feita se o funcionario id não estiver setado
-                notExistsOrError(funcionarioFromDB, 'funcionario já cadastrado.')
+                // notExistsOrError(funcionarioFromDB, 'funcionario já cadastrado.')
                 // o funcionarioFromDB se refere ao novo usuário que pretende ser inserido no banco de dados, por isso antes ele busca se há algum parecido com o await
-            }
+            // }
         } catch (msg) {
             return resposta.status(400).send(msg)
             // 400 é um erro de quem está fazendo a requisição, no caso o funcionario que não inseriu os dados corretamente
@@ -53,7 +53,12 @@ module.exports = app => {
         delete funcionario.confirmarSenha
         // exclui a confirmação da senha já que ela não vai ser inserida no banco de dados
 
-        if (funcionario.id) {
+        const funcionarioFromDB = await app.db('funcionario').where({ login: funcionario.login }).first()
+        // atribui a funcionarioFromDB o primeiro usuário do banco de dados onde o login corresponder ao login inserido.
+        // a expressão await (que só pode ser usada em funções assincronas) congela a execução da função até que a promisse seja entregue.
+        // app.db acessa o knex.
+
+        if (funcionarioFromDB) {
             app.db('funcionario')
                 .update(funcionario)
                 .where({ login: funcionario.login })
