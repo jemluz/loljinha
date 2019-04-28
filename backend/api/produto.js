@@ -11,11 +11,14 @@ module.exports = app => {
       existsOrError(produto.preco, 'Preço não inserido.')
       existsOrError(produto.categoriaId, 'Categoria não inserida.')
 
-      // const produtoFromDB = await 
-      // app.db('produto')
-      //   .where({ descricao: produto.descricao })
-      //   .first()
+      const categoriaFromDB = await 
+      app.db('categoria')
+        .where({ id: produto.categoriaId })
+        .first()
 
+      if (!produto.id) {
+        existsOrError(categoriaFromDB, 'essa categoria não existe.')
+      }
       // if (!produto.id) {
       //   notExistsOrError(produtoFromDB, 'produto já cadastrado.')
       // }
@@ -23,12 +26,7 @@ module.exports = app => {
       return resposta.status(400).send(msg)
     }
 
-    const produtoFromDB = await 
-      app.db('produto')
-        .where({ descricao: produto.descricao })
-        .first()
-
-    if (produtoFromDB) {
+    if (produto.id) {
       app.db('produto')
         .update(produto)
         .where({ id: produto.id})

@@ -171,13 +171,13 @@ export default {
       const id = this.produto.id ? `/${ this.produto.id }` : ''
       console.log(method + id)
       console.log(this.produto)
-      axios[method](`${baseApiUrl}/produtos${id}`, this.produto)
-        .then(() => { 
-          console.log('oi')
-          this.$toasted.global.defaultSucess()
+      axios[method](`${baseApiUrl}/produtos${id}`, this.produto).then(() => {this.$toasted.global.defaultSucess()
           this.reset()
+          console.log('oi')
+
         })
         .catch(showError)
+        console.log('oi')
     },
     remove() {
       // é uma função mais simples que o save(), que faz uma requisição axios do tipo delete passando a url com o id
