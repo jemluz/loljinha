@@ -9,7 +9,7 @@ module.exports = app => {
     .all(app.config.passport.authenticate())
     .post(app.api.cliente.saveCliente)
     .get(app.api.cliente.getCliente)
-  // .all() é um filtro que chama o metodo autenticate para validar a sessão e a partir disso permitir ou negar o acesso aos serviços da aplicação
+  // .all() é um filtro que chama o metodo autenticate do arquivo passport para validar a sessão e a partir disso permitir ou negar o acesso aos serviços da aplicação
   // .post vai associar qual metodo será chamado quando ele receber uma requisição nessa rota usando post.
   // consign usa o caminho app.api.cliente.save para chamar a instancia, acessar a api, entrar no arquivo cliente e pegar a função save retornada pelo modulo.
 

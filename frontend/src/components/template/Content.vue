@@ -5,11 +5,10 @@
 </template>
 
 <script>
-import CreateData from "@/components/sections/CreateData";
 
 export default {
   name: 'Content',
-  components: { CreateData }
+  components: {  }
 }
 </script>
 

@@ -4,19 +4,19 @@
       div(class="d-flex align-items-center")
         
         div(class="site-logo mr-auto w-25")
-          router-link(to="/home") Loljinha;)
+          router-link(to="/") Loljinha;)
 
         div(class="mx-auto text-center")
           nav(class="site-navigation position-relative text-right" role="navigation")
             ul(class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0")
               li 
-                a(href="#create-section", class="nav-link") Cliente
+                router-link(to="/", class="nav-link") Clientes
               li 
-                a(href="#read-section", class="nav-link") Funcionário
+                router-link(to="/funcionarios", class="nav-link") Funcionário
               li 
-                a(href="#update-section", class="nav-link") Categoria
+                router-link(to="/categorias", class="nav-link") Categoria
               li 
-                a(href="#delete-section", class="nav-link") Produto
+                router-link(to="/produtos", class="nav-link") Produto
                 
         div(class="ml-auto w-25")
           nav( class="site-navigation position-relative text-right" role="navigation")
@@ -54,4 +54,24 @@ export default {
 </script>
 
 <style lang="scss">
+
+.sticky-wrapper .site-navbar .site-menu > li > router-link {
+  border-bottom: 4px solid #fff;
+  transition: all 1s ease-in;
+  &.router-link-exact-active {
+    border-bottom: 4px solid #fff;
+    position: relative;
+  }
+}
+
+.site-navbar .site-navigation .site-menu { 
+  border-bottom: 3px solid transparent;
+  padding: 50px 20px;
+  transition: all 1s ease-in;
+  .router-link-exact-active {
+    border-bottom: 3px solid #7971ea;
+    display: inline-block;
+    // padding: 5px 20px;
+  }
+}
 </style>
