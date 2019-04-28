@@ -13,7 +13,7 @@ module.exports = app => {
 
       const produtoFromDB = await 
       app.db('produto')
-        .where({ desscricao: produto.desscricao })
+        .where({ descricao: produto.descricao })
         .first()
 
       if (!produto.id) {
