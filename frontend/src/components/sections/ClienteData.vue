@@ -75,7 +75,7 @@
                       class="btn btn-primary btn-pill" 
                       v-if="mode === 'save'"
                       @click="save"
-                      value="Criar cadastro"
+                      value="Salvar cadastro"
                     )
                     input(
                       type='button'
@@ -124,7 +124,7 @@ import axios from 'axios'
 // o axios é responsável por enviar requisições da view
 
 export default {
-  name: 'CreateData',
+  name: 'ClienteData',
   data: function() {
     return {
       mode: 'save', 
@@ -243,5 +243,4 @@ export default {
 .bt-remove {
   color:  #eb1c0f;
 }
-
 </style>
