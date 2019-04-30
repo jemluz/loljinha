@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+SET NAMES utf8 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,12 +21,17 @@
 
 DROP TABLE IF EXISTS `categoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `categoria` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+SET character_set_client
+= utf8mb4 ;
+CREATE TABLE `categoria`
+(
+  `id` int
+(10) unsigned NOT NULL AUTO_INCREMENT,
+  `descricao` varchar
+(255) NOT NULL,
+  PRIMARY KEY
+(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +40,6 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'cat3'),(2,'comida'),(3,'eletronicos'),(4,'karina');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -45,13 +49,20 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `cliente` (
-  `login` varchar(255) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `senha` varchar(255) NOT NULL,
-  PRIMARY KEY (`login`),
-  UNIQUE KEY `cliente_login_unique` (`login`)
+SET character_set_client
+= utf8mb4 ;
+CREATE TABLE `cliente`
+(
+  `login` varchar
+(255) NOT NULL,
+  `nome` varchar
+(255) NOT NULL,
+  `senha` varchar
+(255) NOT NULL,
+  PRIMARY KEY
+(`login`),
+  UNIQUE KEY `cliente_login_unique`
+(`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -61,7 +72,6 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES ('java','joao','$2a$10$/YY82W1Lk35pUzJbDCrqUuq2pu6hfr5DiWV3abZ11xIkigX4k9PHW'),('javinh2a','joao','$2a$10$IMn8gWAZXpcTWGpa0M9f8.dhQsvo2ytRdbm9Q781866HhT.6jSEB6'),('javinha','joao','$2a$10$WDtkRBamFn.Ncw/wXt5Jcev3Y/bNpZKNuNxzcc/lPfHD8djifT6AS'),('jems','jemima','$2a$10$rI6KojYRiRLz5vFoKzvNzuTctGbmHtPSg/FNu5eabQuoci0lLCtvW'),('joao','joao victor','$2a$10$49H2bl3kwdN2LkgWQcjbAO6jx2t.j5P.6F4UZ11CgH0BsLlDFRDNy');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -71,14 +81,22 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `funcionario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `funcionario` (
-  `login` varchar(255) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `senha` varchar(255) NOT NULL,
-  `salario` varchar(255) NOT NULL,
-  PRIMARY KEY (`login`),
-  UNIQUE KEY `funcionario_login_unique` (`login`)
+SET character_set_client
+= utf8mb4 ;
+CREATE TABLE `funcionario`
+(
+  `login` varchar
+(255) NOT NULL,
+  `nome` varchar
+(255) NOT NULL,
+  `senha` varchar
+(255) NOT NULL,
+  `salario` varchar
+(255) NOT NULL,
+  PRIMARY KEY
+(`login`),
+  UNIQUE KEY `funcionario_login_unique`
+(`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -88,7 +106,6 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES ('joao2','joao victor2','$2a$10$mosUC4sNnsX/E1fhc9AVZu.blPga0Nlz6R8NePS9n7vMPrApG0NHW','5000');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,13 +115,19 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `knex_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `knex_migrations` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `batch` int(11) DEFAULT NULL,
+SET character_set_client
+= utf8mb4 ;
+CREATE TABLE `knex_migrations`
+(
+  `id` int
+(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar
+(255) DEFAULT NULL,
+  `batch` int
+(11) DEFAULT NULL,
   `migration_time` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY
+(`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -114,7 +137,13 @@ CREATE TABLE `knex_migrations` (
 
 LOCK TABLES `knex_migrations` WRITE;
 /*!40000 ALTER TABLE `knex_migrations` DISABLE KEYS */;
-INSERT INTO `knex_migrations` VALUES (1,'20190405095356_cliente.js',1,'2019-04-23 00:39:49'),(2,'20190405101314_funcionario.js',1,'2019-04-23 00:39:51'),(3,'20190405101621_categoria.js',1,'2019-04-23 00:39:52'),(4,'20190405102110_produto.js',1,'2019-04-23 00:39:58');
+INSERT INTO `
+knex_migrations`
+VALUES
+  (1, '20190405095356_cliente.js', 1, '2019-04-30 16:41:48'),
+  (2, '20190405101314_funcionario.js', 1, '2019-04-30 16:41:54'),
+  (3, '20190405101621_categoria.js', 1, '2019-04-30 16:41:56'),
+  (4, '20190405102110_produto.js', 1, '2019-04-30 16:42:03');
 /*!40000 ALTER TABLE `knex_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,11 +153,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `knex_migrations_lock`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `knex_migrations_lock` (
-  `index` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `is_locked` int(11) DEFAULT NULL,
-  PRIMARY KEY (`index`)
+SET character_set_client
+= utf8mb4 ;
+CREATE TABLE `knex_migrations_lock`
+(
+  `index` int
+(10) unsigned NOT NULL AUTO_INCREMENT,
+  `is_locked` int
+(11) DEFAULT NULL,
+  PRIMARY KEY
+(`index`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -138,7 +172,10 @@ CREATE TABLE `knex_migrations_lock` (
 
 LOCK TABLES `knex_migrations_lock` WRITE;
 /*!40000 ALTER TABLE `knex_migrations_lock` DISABLE KEYS */;
-INSERT INTO `knex_migrations_lock` VALUES (1,0);
+INSERT INTO `
+knex_migrations_lock`
+VALUES
+  (1, 0);
 /*!40000 ALTER TABLE `knex_migrations_lock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,16 +185,26 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `produto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `produto` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(255) NOT NULL,
-  `preco` varchar(255) NOT NULL,
-  `categoriaId` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `produto_categoriaid_foreign` (`categoriaId`),
-  CONSTRAINT `produto_categoriaid_foreign` FOREIGN KEY (`categoriaId`) REFERENCES `categoria` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+SET character_set_client
+= utf8mb4 ;
+CREATE TABLE `produto`
+(
+  `id` int
+(10) unsigned NOT NULL AUTO_INCREMENT,
+  `descricao` varchar
+(255) NOT NULL,
+  `preco` varchar
+(255) NOT NULL,
+  `categoriaId` int
+(10) unsigned NOT NULL,
+  PRIMARY KEY
+(`id`),
+  KEY `produto_categoriaid_foreign`
+(`categoriaId`),
+  CONSTRAINT `produto_categoriaid_foreign` FOREIGN KEY
+(`categoriaId`) REFERENCES `categoria`
+(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,7 +213,6 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (1,'frango','5,00',2),(2,'feijão','3,00',2),(3,'arroz','4,00',2),(4,'seases','545451',1),(5,'karina','15,00',1),(7,'asease','aaseseqe',2),(10,'franguinho','7,00',2),(11,'franguinho2','7,00',2),(12,'franguinho22','7,00',2),(13,'franguinh12o22','7,00',2),(14,'franguinh12222o22','7,00',2),(15,'franguinh12222o22','7,00',2),(16,'franguinho','7,00',2),(17,'franguinho','7,00',2),(18,'franguinho','7,00',2);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,4 +233,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-30 12:53:21
+-- Dump completed on 2019-04-30 13:43:06
