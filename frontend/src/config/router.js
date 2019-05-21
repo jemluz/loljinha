@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import LoginPage from "@/components/sections/LoginPage";
 import ClienteData from "@/components/sections/ClienteData";
 import FuncionarioData from "@/components/sections/FuncionarioData";
 import CategoriaData from "@/components/sections/CategoriaData";
@@ -12,7 +13,12 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/login',
+      name: 'Login',
+      component: LoginPage
+    },
+    {
+      path: '/cadastro',
       name: 'ClienteData',
       component: ClienteData
     },

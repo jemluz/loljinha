@@ -199,7 +199,7 @@ export default {
 
 <style lang="scss">
 .slide-1 {
-  background-image: url('../../../public/images/hero_1.jpg'); 
+  // background-image: url('../../../public/images/hero_1.jpg'); 
   background-repeat: no-repeat; 
   background-attachment: fixed;
 }
