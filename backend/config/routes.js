@@ -1,6 +1,7 @@
 // definição de rota para acessar os usuários pela url /clientes usando o metodo http POST.
 module.exports = app => {
   app.post('/signup', app.api.cliente.saveCliente)
+  app.post('/signupf', app.api.funcionario.saveFuncionario)
   app.post('/signin', app.api.auth.signin)
   app.post('/validateToken', app.api.auth.validateToken)
   // as urls acima são públicas, disponiveis para qualquer usuário, as demais são protegidas
@@ -29,7 +30,6 @@ module.exports = app => {
 
   app.route('/funcionarios')
     .all(app.config.passport.authenticate())
-    .post(app.api.funcionario.saveFuncionario)
     .get(app.api.funcionario.getFuncionario)
 
   app.route('/funcionarios/:login')

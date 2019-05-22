@@ -12,7 +12,6 @@
             v-model='user.nome'
             v-if="showSignup"
             required
-            onchange="progressBar()"
               )
         div.form-group
           input(
@@ -44,7 +43,7 @@
             id='checkFuncionario'
             type="checkbox" 
             class="form-check-input" 
-            v-model='user.funcionario'
+            v-model='funcionario'
             v-if="showSignup"
             required
           )
@@ -58,7 +57,7 @@
             type="tel" 
             class="form-control" 
             placeholder="Ganha quanto?"
-            v-if="user.funcionario"
+            v-if="funcionario"
             v-model='user.salario'
             required
           )  
@@ -102,8 +101,8 @@ export default {
   data: function() {
     return {
       user: {},
-      showSignup: false,
-      percent: 0
+      funcionario: false,
+      showSignup: false
     }
   },
   methods: {
@@ -116,12 +115,21 @@ export default {
       }).catch(showError)
     },
     signup() {
-      axios.post(`${baseApiUrl}/signup`, this.user)
-      .then(() => {
-          this.$toasted.global.defaultSucess()
-          this.user = {}
-          this.showSignup = false
-      }).catch(showError)
+      if(this.funcionario) {
+        axios.post(`${baseApiUrl}/signupf`, this.user)
+        .then(() => {
+            this.$toasted.global.defaultSucess()
+            this.user = {}
+            this.showSignup = false
+        }).catch(showError)
+      } else {
+        axios.post(`${baseApiUrl}/signup`, this.user)
+        .then(() => {
+            this.$toasted.global.defaultSucess()
+            this.user = {}
+            this.showSignup = false
+        }).catch(showError)
+      }
     }
   }
 }
