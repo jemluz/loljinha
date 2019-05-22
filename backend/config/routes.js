@@ -1,7 +1,7 @@
 // definição de rota para acessar os usuários pela url /clientes usando o metodo http POST.
 module.exports = app => {
   app.post('/signup', app.api.cliente.saveCliente)
-  app.post('/login', app.api.auth.signin)
+  app.post('/signin', app.api.auth.signin)
   app.post('/validateToken', app.api.auth.validateToken)
   // as urls acima são públicas, disponiveis para qualquer usuário, as demais são protegidas
 

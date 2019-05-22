@@ -1,7 +1,5 @@
 <template lang="pug">
-  div(id="app" :class="{'hide-menu': !isVisible}")
-    <!-- se o menu != visivel, a classe .hide-menu é aplicada -->
-    MenuMobile(:hideToggle="false")
+  div(:class="{'hide-painel': !isFuncionario || !user}")
     Nav
     Content
     Footer
@@ -10,15 +8,14 @@
 
 <script>
 import { mapState } from "vuex";
-import MenuMobile from "@/components/template/MenuMobile";
 import Nav from "@/components/template/Nav";
 import Content from "@/components/template/Content";
 import Footer from "@/components/template/Footer";
 
 export default {
   name: "App",
-  components: { MenuMobile, Nav, Content, Footer },
-  computed: mapState(["isVisible"])
+  components: { Nav, Content, Footer },
+  computed: mapState(['isFuncionario', 'user'])
 };
 </script>
 
