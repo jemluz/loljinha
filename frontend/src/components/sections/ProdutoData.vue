@@ -50,16 +50,20 @@
                     )
 
                   div.form-group
-                    input(
-                      type="number" 
-                      class="form-control" 
-                      placeholder="Ah! Tem o id da categoria dele também."
-                      v-model='produto.categoriaId'
-                      :readonly='mode === "remove"'
+                    label Ah! Tem a categoria também!
+                    select( 
+                      class="form-control"  
+                      v-model='produto.categoriaId' 
+                      :readonly='mode === "remove"' 
                       required
                     )
+                      option(v-for='categoria in categorias' :value="categoria.id") {{ categoria.id }} / {{ categoria.descricao }}
 
-                  div.form-group
+                  div.form-group                  
+                    label(for="exampleFormControlFile1") Mande fotos do seu produto, vai ficar melhor!
+                    input(type="file" class="form-control-file mb-3" @change="onFileChange" id="exampleFormControlFile1" ref="fotoPath")
+
+                  div.form-group  
                     input(
                       type='button'
                       class="btn btn-primary btn-pill" 
@@ -81,6 +85,8 @@
                       value="limpar"        
                       data-aos="fade-left" 
                     )
+
+    img(:src="img")
 
     table(
       class='data-table col-lg-12 form-box'
@@ -122,7 +128,10 @@ export default {
       mode: 'save', 
       produto: {},
       produtos: [],
-      edit: false
+      categorias: [],
+      selectedImage: null,
+      edit: false,
+      img: ''
     }
   },
   methods: {
@@ -137,7 +146,12 @@ export default {
       const url = `${baseApiUrl}/produtos`
       axios.get(url).then(resposta => {
         this.produtos = resposta.data
-        console.log(this.produto, this.edit)
+      })
+    },
+    loadCategorias() {
+      // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
+      axios.get(`${baseApiUrl}/categorias`).then(resposta => {
+        this.categorias = resposta.data
       })
     },
     reset() {
@@ -169,15 +183,10 @@ export default {
       */
       const method = this.produto.id ? 'put' : 'post'
       const id = this.produto.id ? `/${ this.produto.id }` : ''
-      console.log(method + id)
-      console.log(this.produto)
       axios[method](`${baseApiUrl}/produtos${id}`, this.produto).then(() => {this.$toasted.global.defaultSucess()
           this.reset()
-          console.log('oi')
-
         })
         .catch(showError)
-        console.log('oi')
     },
     remove() {
       // é uma função mais simples que o save(), que faz uma requisição axios do tipo delete passando a url com o id
@@ -188,21 +197,41 @@ export default {
           this.reset()
         })
         .catch(showError)
+    },
+    onFileChange(e) {
+      var control = this
+      var img = new Image()
+      var files = []
+      if(e.target.files){
+        files = e.target.files
+      }else if(e.dataTransfer.files){
+        files = e.dataTransfer.files
+      }
+      if (!files.length)
+        return;
+        var reader = new FileReader()      
+        reader.onloadend = function () {
+          control.produto.fotoPath = reader.result
+        }
+        reader.readAsBinaryString(files[0])
+        var preview = new FileReader()
+        preview.onloadend = function () {
+          control.img = preview.result
+        }
+        preview.readAsDataURL(files[0])
     }
   },
   mounted() {
     // executado após o carregamento do componente
+    this.loadCategorias()
     this.loadProdutos()
   }
 }
 </script>
 
 <style lang="scss">
-.slide-1 {
-  // background-image: url('../../../public/images/hero_1.jpg'); 
-  background-repeat: no-repeat; 
-  background-attachment: fixed;
-}
+
+option {text-transform: uppercase;}
 
 .data-table{
   width: 100%;
