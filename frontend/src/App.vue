@@ -21,4 +21,5 @@ export default {
 
 
 <style lang="scss">
+a:hover { text-decoration: none; }
 </style>

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import LoginCadastro from "@/components/sections/LoginCadastro";
+import Vitrine from "@/components/sections/Vitrine";
+
 import ClienteData from "@/components/sections/ClienteData";
 import FuncionarioData from "@/components/sections/FuncionarioData";
 import CategoriaData from "@/components/sections/CategoriaData";
@@ -13,9 +15,19 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/vitrine',
+      name: 'Vitrine',
+      component: Vitrine
+    },
+    {
       path: '/auth',
       name: 'LoginCadastro',
       component: LoginCadastro
+    },
+    {
+      path: '/usuarios',
+      name: 'ClienteData',
+      component: ClienteData
     },
     {
       path: '/funcionarios',

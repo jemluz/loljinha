@@ -4,13 +4,13 @@
       div(class="container")
         div(class="header_content d-flex flex-row align-items-center justify-content-start")
       
-          div(class="logo mr-auto ")
-            router-link(to="/") Loljinha;)
+          div(class="logo")
+            router-link(to="/vitrine") Loljinha;)
 
           nav(class="main_nav" role="navigation")
             ul
               li(class="hassubs active")
-                router-link(to="index.html" class="nav-link") Produtos 
+                router-link(to="/vitrine" class="nav-link") Vitrine 
                 ul
                   li
                     router-link(to="categories.html") Categories
@@ -24,7 +24,7 @@
                     router-link(to="contact.html") Contact
 
               li
-                router-link(to="#") Usuários
+                router-link(to="/usuarios") Usuários
               li
                 router-link(to="contact.html") Sobre
               li
@@ -46,12 +46,10 @@
                 div Carrinho 
                   span (0)
 
-      div(class="header_social")
-        ul
-          li
-            router-link(to="/login" title="Login" class="fa fa-sign-in fa-lg" aria-hidden="true" alt="Login")
-          li
-            router-link(to="/cadastro" class="fa fa-user-o fa-lg ml-3  mr-5" aria-hidden="true" title="Cadastro")
+      div(class="header_social user-dropdown")
+        p 
+        router-link(to="/auth" title="Login" class="fa fa-sign-in fa-lg" aria-hidden="true" alt="Login")
+
 
 </template>
 
@@ -63,8 +61,9 @@ export default {
   computed: mapState(["isMenuVisible"]),
   data() {
     return {
-      isHome: true,
-      isQuem: false
+      generic: 'Login / Cadastro ',
+      welcome: 'Olá, ',
+      user: {}
     };
   },
   methods: {
@@ -79,6 +78,9 @@ export default {
 </script>
 
 <style lang="scss">
+.user-dropdown { display: flex;  
+  a { margin: 7px 0px 0px 10px;   }
+}
 
 .sticky-wrapper .site-navbar .site-menu > li > router-link {
   border-bottom: 4px solid #fff;
@@ -99,4 +101,6 @@ export default {
     // padding: 5px 20px;
   }
 }
+
+.shopping_cart { width: 150px;}
 </style>
