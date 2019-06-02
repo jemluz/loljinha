@@ -1,94 +1,99 @@
 <template lang='pug'>
-  div.auth-content
-    div(class='auth-modal col-lg-3')
-      h1(class='auth-title') {{ showSignup ? 'Novo Cadastro ' : 'Login' }}
+  transition
+    div.auth-content
+      div(class='auth-modal col-lg-3')
+        h1(class='auth-title') {{ showSignup ? 'Novo Cadastro ' : 'Login' }}
 
-      form.form-box
-        div.form-group
-          input(
-            type="text" 
-            class="form-control" 
-            placeholder="Seu nome aqui :)"
-            v-model='user.nome'
-            v-if="showSignup"
-            required
-              )
-        div.form-group
-          input(
-            type="text" 
-            class="form-control" 
-            placeholder="... e o login!"
-            v-model='user.login'
-            required
-          )
-        div.form-group
-          input(
-            type="password" 
-            class="form-control" 
-            placeholder="Ah! Tem a senha também."
-            v-model='user.senha'
-            required
-          )
-        div.form-group
-          input(
-            type="password" 
-            class="form-control" 
-            placeholder="Pode repetir a senha?"
-            v-model='user.confirmarSenha'
-            v-if="showSignup"
-            required
-          )
-        div.form-check
-          input(
-            id='checkFuncionario'
-            type="checkbox" 
-            class="form-check-input" 
-            v-model='funcionario'
-            v-if="showSignup"
-            required
-          )
-          label(
-            class="form-check-label" 
-            v-if="showSignup"
-            for="checkFuncionario") É funcionário?
+        form.form-box
+          div.form-group
+            input(
+              type="text" 
+              class="form-control" 
+              placeholder="Seu nome aqui :)"
+              v-model='user.nome'
+              v-if="showSignup"
+              required
+                )
+          div.form-group
+            input(
+              type="text" 
+              class="form-control" 
+              placeholder="... e o login!"
+              v-model='user.login'
+              required
+            )
+          div.form-group
+            input(
+              type="password" 
+              class="form-control" 
+              placeholder="Ah! Tem a senha também."
+              v-model='user.senha'
+              required
+            )
+          div.form-group
+            input(
+              type="password" 
+              class="form-control" 
+              placeholder="Pode repetir a senha?"
+              v-model='user.confirmarSenha'
+              v-if="showSignup"
+              required
+            )
+          div.form-check
+            input(
+              id='checkFuncionario'
+              type="checkbox" 
+              class="form-check-input" 
+              v-model='funcionario'
+              v-if="showSignup"
+              required
+            )
+            label(
+              class="form-check-label" 
+              v-if="showSignup"
+              for="checkFuncionario") É funcionário?
 
-        div.form-group
-          input(
-            type="tel" 
-            class="form-control" 
-            placeholder="Ganha quanto?"
-            v-if="funcionario"
-            v-model='user.salario'
-            required
-          )  
+          div.form-group
+            input(
+              type="tel" 
+              class="form-control" 
+              placeholder="Ganha quanto?"
+              v-if="funcionario"
+              v-model='user.salario'
+              required
+            )  
 
-        div.button-group
-          input(
-            type='button'     
-            class="btn btn-primary btn-pill" 
-            v-if="!showSignup"
-            @click="signin"
-            value="Entrar"
-          )
-          input(
-            type='button'     
-            class="btn btn-primary btn-pill" 
-            v-else
-            @click="signup"
-            value="Registrar"
-          )
+          div.button-group
+            input(
+              type='button'     
+              class="btn btn-primary btn-pill" 
+              v-if="!showSignup"
+              @click="signin"
+              value="Entrar"
+            )
+            input(
+              type='button'     
+              class="btn btn-primary btn-pill" 
+              v-else
+              @click="signup"
+              value="Registrar"
+            )
 
-          input(
-            type='button'
-            class="btn btn-dark danger ml-3 btn-pill" 
-            @click=""
-            value="limpar"        
-            data-aos="fade-left" 
-          )
+            input(
+              type='button'
+              class="btn btn-dark danger ml-3 btn-pill" 
+              @click=""
+              value="limpar"        
+              data-aos="fade-left" 
+            )
 
-      a(href @click.prevent="showSignup = !showSignup" class="alternar") 
-        span(v-if='showSignup' class="fa fa-toggle-off fa-lg")
-        span(v-else class="fa fa-toggle-on fa-lg")
+        a(href @click.prevent="showSignup = !showSignup" class="alternar") 
+            p(v-if='!showSignup' style='color: grey;') cadastro
+            p(v-else style='color: #7971ea;') cadastro
+            span(v-if='showSignup' class="fa fa-toggle-off fa-lg")
+            span(v-else class="fa fa-toggle-on fa-lg")
+            p(v-if='showSignup' style='color: grey;') login
+            p(v-else style='color: #7971ea;') login
 
 </template>
 
@@ -100,9 +105,9 @@ export default {
   name: 'LoginCadastro',
   data: function() {
     return {
-      user: {},
       funcionario: false,
-      showSignup: false
+      showSignup: false,
+      user: { isFuncionario: false, salario: 0 }
     }
   },
   methods: {
@@ -111,12 +116,12 @@ export default {
       .then(res => {
           this.$store.commit('setUser', res.data)
           localStorage.setItem(userKey, JSON.stringify(res.data))
-          this.$router.push({ path: '/clientes'})
+          this.$router.push({ path: '/produtos'})
       }).catch(showError)
     },
     signup() {
       if(this.funcionario) {
-        axios.post(`${baseApiUrl}/signupf`, this.user)
+        axios.post(`${baseApiUrl}/signup`, this.user)
         .then(() => {
             this.$toasted.global.defaultSucess()
             this.user = {}
@@ -167,7 +172,9 @@ export default {
   justify-content: center;
 }  
 
-.alternar { padding: 40px; text-decoration: none;}
+.alternar { display: flex; flex-direction: row; padding: 40px; text-decoration: none; 
+  p:hover { color: #7971ea; }
+  span { padding: 7px; color: #7971ea;}}
 
 .bt-edit,
 .bt-remove {
@@ -179,4 +186,7 @@ export default {
 .bt-remove {
   color:  #eb1c0f;
 }
+
+.v-enter, .v-leave-to { opacity: 0; }
+.v-enter-active, .v-leave-active { transition: opacity .5s; }
 </style>
