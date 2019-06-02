@@ -11,10 +11,10 @@ module.exports = app => {
 
   // a estrategia usa os parametros obtidos da requisição como referência
   const strategy = new Strategy(params, (payload, done) => {
-    app.db('cliente')
+    app.db('usuario')
       .where({ login: payload.login })
       .first()
-      .then(cliente => done(null, cliente ? { ...payload } : false ))
+      .then(user => done(null, user ? { ...payload } : false ))
       .catch(err => done(err, false))
 
     // realiza um acesso ao banco de dados que, se bem sucedido, retorna o payload do usuário.

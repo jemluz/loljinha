@@ -13,16 +13,16 @@ module.exports = app => {
       // verifica se os campos foram preenchidos
     } 
 
-    const cliente = await
-    app.db('cliente')
+    const user = await
+    app.db('usuario')
       .where({ login: requisicao.body.login })
       .first()
     // procura o usuário correspondente no banco de dados
     // se não encontrar o cliente correspondente no banco de dados, retorna erro 400
-    if (!cliente) return resposta.status(400).send('Usuário ou senha não existe.')
+    if (!user) return resposta.status(400).send('Usuário ou senha não existe.')
   
     // como os hashs de senhas iguais são diferentes, para fazer o match entre a senha inserida e a presente no sistema criamos uma variável que irá usar a função compareSync do bcrypt para fazer a validação
-    const isMatch = bcrypt.compareSync( requisicao.body.senha, cliente.senha )
+    const isMatch = bcrypt.compareSync( requisicao.body.senha, user.senha )
     if (!isMatch) return resposta.status(401).send('Login ou senha inválidos.')
 
     // se tudo ocorreu bem o token deve ser gerado e junto com ele o tempo de expiração, para isso vamos precisamos saber em que momento o login foi realizado e a partir dele adicionar o tempo de expiração do token.
@@ -33,8 +33,9 @@ module.exports = app => {
 
     // payload irá armazenar os dados da sessão
     const payload = {
-      login: cliente.login,
-      nome: cliente.nome,
+      login: user.login,
+      nome: user.nome,
+      isFuncionario: user.isFuncionario,
       iat: now,
       exp: now + (60 * 60 * 24 * 3)
       // iat corresponde à "issued at" ou "emitido em"
@@ -51,13 +52,13 @@ module.exports = app => {
 
   // apos um token ser criado, qualquer nova requisição precisará de um cabeçalho chamado autorization para fazer a validação do token.
   const validateToken = async (requisicao, resposta) => {
-    const clienteData = requisicao.body || null
+    const userData = requisicao.body || null
     // se o não houver nada na requisição, clienteData assume nulo
 
     try {
       // se clienteData foi setado, ele decodifica o token existente na requisção
-      if (clienteData) {
-        const token = jwt.decode(clienteData.token, authSecret)
+      if (userData) {
+        const token = jwt.decode(userData.token, authSecret)
         
         // verifica se o token ainda é válido comparando a data de expiração com a data atual
         if (new Date(token.exp * 1000) > new Date()) {

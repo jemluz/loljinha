@@ -5,9 +5,10 @@ exports.up = function (knex, Promise) {
     table.string('descricao').notNull()
     table.string('preco').notNull()
     table.integer('categoriaId').unsigned().notNullable().references('id').inTable('categoria')
+    table.text('fotoPath').notNull()
   })
 };
-// função para involução do banco de dados (controle de versões novas)
+// função para iblnvolução do banco de dados (controle de versões novas)
 exports.down = function (knex, Promise) {
   return knex.schema.dropTable('produto')
 };
