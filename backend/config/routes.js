@@ -39,9 +39,27 @@ module.exports = app => {
     .get(app.api.categoria.getCategoriaById)
     .delete(app.api.categoria.removeCategoria)
 
+  const multer = require('multer')
+
+  const storage =  multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/')
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now()+'-'+file.originalname)
+    }
+  })
+  
+  const upload = multer({ storage })
+
   app.route('/produtos')
     .all(app.config.passport.authenticate())
-    .post(app.api.produto.saveProduto)
+    .post(upload.single('fotoPath'), (req, res) => {
+      console.log(req.body, req.file)
+      res.send('ok')
+    })
+    // .post(app.api.produto.saveProduto)
+
 
   app.route('/produtos/:id')
     .all(app.config.passport.authenticate())

@@ -61,7 +61,7 @@
 
                   div.form-group                  
                     label(for="exampleFormControlFile1") Mande fotos do seu produto, vai ficar melhor!
-                    input(type="file" class="form-control-file mb-3" @change="onFileChange" id="exampleFormControlFile1" ref="fotoPath")
+                    input(type="file" class="form-control-file mb-3" name='fotoPath' @change="onFileChange" id="exampleFormControlFile1" ref="fotoPath")
 
                   div.form-group  
                     input(
@@ -131,7 +131,6 @@ export default {
       categorias: [],
       selectedImage: null,
       edit: false,
-      img: ''
     }
   },
   methods: {
