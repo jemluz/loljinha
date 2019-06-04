@@ -11,7 +11,7 @@
                             v-for='produto in produtos'
                             )
                             div.product_image
-                                img(src="images/product_1.jpg" alt="")
+                                img(src="images/product_1.jpg")
 
                             div(class="product_extra product_sale" v-for='categoria in categorias')
                                 a(href="categories.html" v-if='categoria.id === produto.categoriaId ')  {{ categoria.descricao }}
@@ -62,6 +62,8 @@ export default {
 
 <style lang='scss'>
 .products {
-    margin-bottom: 400px;
-}
+    height: 500px;}
+
+.product_grid { display: flex; justify-content: space-between;}
+
 </style>

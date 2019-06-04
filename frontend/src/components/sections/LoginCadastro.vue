@@ -44,7 +44,7 @@
               id='checkFuncionario'
               type="checkbox" 
               class="form-check-input" 
-              v-model='funcionario'
+              v-model='user.isFuncionario'
               v-if="showSignup"
               required
             )
@@ -58,7 +58,7 @@
               type="tel" 
               class="form-control" 
               placeholder="Ganha quanto?"
-              v-if="funcionario"
+              v-if="user.isFuncionario && showSignup "
               v-model='user.salario'
               required
             )  
@@ -105,7 +105,6 @@ export default {
   name: 'LoginCadastro',
   data: function() {
     return {
-      funcionario: false,
       showSignup: false,
       user: { isFuncionario: false, salario: 0 }
     }
@@ -120,21 +119,12 @@ export default {
       }).catch(showError)
     },
     signup() {
-      if(this.funcionario) {
-        axios.post(`${baseApiUrl}/signup`, this.user)
-        .then(() => {
-            this.$toasted.global.defaultSucess()
-            this.user = {}
-            this.showSignup = false
-        }).catch(showError)
-      } else {
-        axios.post(`${baseApiUrl}/signup`, this.user)
-        .then(() => {
-            this.$toasted.global.defaultSucess()
-            this.user = {}
-            this.showSignup = false
-        }).catch(showError)
-      }
+      axios.post(`${baseApiUrl}/signup`, this.user)
+      .then(() => {
+          this.$toasted.global.defaultSucess()
+          this.user = {}
+          this.showSignup = false
+      }).catch(showError)
     }
   }
 }

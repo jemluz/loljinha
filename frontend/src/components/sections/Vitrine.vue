@@ -1,8 +1,8 @@
 <template lang='pug'>
     div
-        VBanner
-        VProducts
+        //- VBanner
         VAds
+        VProducts
 
 </template>
 

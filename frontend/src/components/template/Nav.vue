@@ -26,19 +26,13 @@
               li
                 router-link(to="/usuarios") Usuários
               li
-                router-link(to="contact.html") Sobre
-              li
-                router-link(to="/", class="nav-link") Clientes
-              li
-                router-link(to="/funcionarios", class="nav-link") Funcionário
-              li
                 router-link(to="/categorias", class="nav-link") Categoria
               li
                 router-link(to="/produtos", class="nav-link") Produto
 
           div(class="header_extra ml-auto")
             div(class="shopping_cart")
-              router-link(to="cart.html")
+              router-link(to="/carrinho")
                 svg(x="0px" y="0px" viewBox="0 0 489 489" style="enable-background:new 0 0 489 489;" xml:space="preserve")
                   g
                     path(d="M440.1,422.7l-28-315.3c-0.6-7-6.5-12.3-13.4-12.3h-57.6C340.3,42.5,297.3,0,244.5,0s-95.8,42.5-96.6,95.1H90.3c-7,0-12.8,5.3-13.4,12.3l-28,315.3c0,0.4-0.1,0.8-0.1,1.2c0,35.9,32.9,65.1,73.4,65.1h244.6c40.5,0,73.4-29.2,73.4-65.1C440.2,423.5,440.2,423.1,440.1,422.7z M244.5,27c37.9,0,68.8,30.4,69.6,68.1H174.9C175.7,57.4,206.6,27,244.5,27z M366.8,462H122.2c-25.4,0-46-16.8-46.4-37.5l26.8-302.3h45.2v41c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h139.3v41c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h45.2l26.9,302.3C412.8,445.2,392.1,462,366.8,462z")
@@ -79,7 +73,7 @@ export default {
 
 <style lang="scss">
 .user-dropdown { display: flex;  
-  a { margin: 7px 0px 0px 10px;   }
+  // a { margin: 7px 0px 0px 10px;   }
 }
 
 .sticky-wrapper .site-navbar .site-menu > li > router-link {
@@ -103,4 +97,6 @@ export default {
 }
 
 .shopping_cart { width: 150px;}
+
+.main_nav, .header_social, .header_extra { margin-top: 10px; }
 </style>

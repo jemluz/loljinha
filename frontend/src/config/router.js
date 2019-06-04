@@ -4,10 +4,11 @@ import Router from 'vue-router'
 import LoginCadastro from "@/components/sections/LoginCadastro";
 import Vitrine from "@/components/sections/Vitrine";
 
-import ClienteData from "@/components/sections/ClienteData";
+import ListaUsuarios from "@/components/sections/ListaUsuarios";
 import FuncionarioData from "@/components/sections/FuncionarioData";
 import CategoriaData from "@/components/sections/CategoriaData";
 import ProdutoData from "@/components/sections/ProdutoData";
+import Carrinho from "@/components/sections/Carrinho";
 
 Vue.use(Router)
 
@@ -26,8 +27,13 @@ export default new Router({
     },
     {
       path: '/usuarios',
-      name: 'ClienteData',
-      component: ClienteData
+      name: 'ListaUsuarios',
+      component: ListaUsuarios
+    },
+    {
+      path: '/carrinho',
+      name: 'Carrinho',
+      component: Carrinho
     },
     {
       path: '/funcionarios',
