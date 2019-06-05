@@ -23,6 +23,7 @@ module.exports = app => {
       // if (!produto.id) {
       //   notExistsOrError(produtoFromDB, 'produto já cadastrado.')
       // }
+
     } catch (msg) {
       return resposta.status(400).send(msg)
     }
@@ -58,6 +59,15 @@ module.exports = app => {
       .catch(err => resposta.status(500).send(err))
   }
 
+  const getProdutoByCat = (requisicao, resposta) => {
+    app.db('produto')
+      .select('id', 'descricao', 'preco', 'categoriaId')
+      .where({ categoriaId: requisicao.params.categoriaId })
+      .first()
+      .then(produto => resposta.json(produto))
+      .catch(err => resposta.status(500).send(err))
+  }
+
   const removeProduto = async (requisicao, resposta) => {
     try {
       existsOrError(requisicao.params.id, 'Código do produto não informado.')
@@ -75,5 +85,5 @@ module.exports = app => {
     }
   }
 
-  return { saveProduto, getProduto, getProdutoById, removeProduto }
+  return { saveProduto, getProduto, getProdutoById, removeProduto, getProdutoByCat }
 }
