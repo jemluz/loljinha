@@ -1,26 +1,25 @@
 <template lang='pug'>
-    div.products
-        div.container
-            div.row
-                div.col
-                    div.product_grid
+    div.container
+        div.row
+            div.col
+                div.product_grid
 
-                        <!-- Product -->
-                        div(
-                            class="product"
-                            v-for='produto in produtos'
-                            )
-                            div.product_image
-                                img(src="images/product_1.jpg")
+                    <!-- Product -->
+                    div(
+                        class="product"
+                        v-for='produto in produtos'
+                        )
+                        div.product_image
+                            img(src="images/product_1.jpg")
 
-                            div(class="product_extra product_sale" v-for='categoria in categorias')
-                                a(href="categories.html" v-if='categoria.id === produto.categoriaId ')  {{ categoria.descricao }}
+                        div(class="product_extra product_sale" v-for='categoria in categorias')
+                            a(href="categories.html" v-if='categoria.id === produto.categoriaId ')  {{ categoria.descricao }}
 
-                            div.product_content
-                                div.product_title 
-                                    a(href="product.html") {{ produto.descricao }}
+                        div.product_content
+                            div.product_title 
+                                a(href="product.html") {{ produto.descricao }}
 
-                                div.product_price R$ {{ produto.preco }}
+                            div.product_price R$ {{ produto.preco }}
 
 </template>
 
@@ -41,14 +40,12 @@ export default {
             // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
             axios.get(`${baseApiUrl}/produtos`).then(resposta => {
                 this.produtos = resposta.data 
-
             })
         },
         loadCategorias() {
             // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
             axios.get(`${baseApiUrl}/categorias`).then(resposta => {
                 this.categorias = resposta.data
-                console.log(this.categorias)
             })
         }
     },
@@ -61,9 +58,6 @@ export default {
 </script>
 
 <style lang='scss'>
-.products {
-    height: 500px;}
-
-.product_grid { display: flex; justify-content: space-between;}
-
+.product_grid { display: flex; margin-top: 100px; height: initial; flex-direction: row; justify-content: space-between; flex-wrap: wrap;  }
+.product { margin-bottom: 20px; }  
 </style>
