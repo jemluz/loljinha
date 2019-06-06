@@ -10,5 +10,5 @@ exports.up = function(knex, Promise) {
 };
 // função para involução do banco de dados (controle de versões novas)
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('funcionario')
+  return knex.schema.dropTable('usuario')
 };

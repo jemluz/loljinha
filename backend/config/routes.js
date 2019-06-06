@@ -19,7 +19,7 @@ module.exports = app => {
 
   //protegidas
   app.route('/usuarios')
-    .all(app.config.passport.authenticate())
+    // .all(app.config.passport.authenticate())
     .get(app.api.usuario.getUser)
   
   app.route('/usuarios/:login')
@@ -39,33 +39,20 @@ module.exports = app => {
     .get(app.api.categoria.getCategoriaById)
     .delete(app.api.categoria.removeCategoria)
 
-  const multer = require('multer')
-
-  const storage =  multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, 'uploads/')
-    },
-    filename: (req, file, cb) => {
-      cb(null, Date.now()+'-'+file.originalname)
-    }
-  })
-  
-  const upload = multer({ storage })
 
   app.route('/produtos')
-    .all(app.config.passport.authenticate())
-    .post(upload.single('fotoPath'), (req, res) => {
-      console.log(req.body, req.file)
-      res.send('ok')
-    })
-    // .post(app.api.produto.saveProduto)
-
+    // .all(app.config.passport.authenticate())
+    .post(app.api.produto.saveProduto)
 
   app.route('/produtos/:id')
     .all(app.config.passport.authenticate())
     .put(app.api.produto.saveProduto)
     .get(app.api.produto.getProdutoById)
     .delete(app.api.produto.removeProduto)
+
+  app.route('/produtos/:cat')
+    .get(app.api.produto.getProdutoByCat)
+
 
 }
 

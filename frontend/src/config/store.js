@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isfuncionario: true,
-    user: null
+    user: null,
+    produtoId: null
   },
   mutations: {
     setUser(state, user) {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
       } else {
         delete axios.defaults.headers.common['Authorization']  
       }
+    },
+    setProdutoId(state, produtoId) {
+      state.produtoId = produtoId
     }
   }
 }) 

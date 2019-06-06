@@ -8,6 +8,7 @@ import ListaUsuarios from "@/components/sections/ListaUsuarios";
 import FuncionarioData from "@/components/sections/FuncionarioData";
 import CategoriaData from "@/components/sections/CategoriaData";
 import ProdutoData from "@/components/sections/ProdutoData";
+import ProdutoDetalhes from "@/components/sections/ProdutoDetalhes";
 import Carrinho from "@/components/sections/Carrinho";
 
 Vue.use(Router)
@@ -49,6 +50,11 @@ export default new Router({
       path: '/produtos',
       name: 'ProdutoData',
       component: ProdutoData
+    },
+    {
+      path: '/produto-detalhe',
+      name: 'ProdutoDetalhes',
+      component: ProdutoDetalhes
     }
   ]
 })

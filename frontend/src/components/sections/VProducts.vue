@@ -7,10 +7,11 @@
                     <!-- Product -->
                     div(
                         class="product"
-                        v-for='produto in produtos'
+                        v-for='(produto, index) in produtos'
                         )
                         div.product_image
-                            img(src="images/product_1.jpg")
+                            router-link(to='/produto-detalhe')    
+                                img(src="images/product_1.jpg"  @click='func(index)')
 
                         div(class="product_extra product_sale" v-for='categoria in categorias')
                             a(href="categories.html" v-if='categoria.id === produto.categoriaId ')  {{ categoria.descricao }}
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-import { baseApiUrl, showError, userKey } from '@/global'
+import { baseApiUrl } from '@/global'
 import axios from 'axios'
 
 export default {
@@ -47,6 +48,10 @@ export default {
             axios.get(`${baseApiUrl}/categorias`).then(resposta => {
                 this.categorias = resposta.data
             })
+        },
+        func(index) {
+            console.log(this.produtos[index].id)
+            this.$store.commit('setProdutoId', this.produtos[index].id)
         }
     },
     mounted() {
