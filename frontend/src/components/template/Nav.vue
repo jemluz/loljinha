@@ -41,14 +41,19 @@
                   span (0)
 
       div(class="header_social user-dropdown")
-        p 
+        p Login
         router-link(to="/auth" title="Login" class="fa fa-sign-in fa-lg" aria-hidden="true" alt="Login")
+        p Logout
+        div(@click="logOut")
+          router-link(to="/vitrine" title="Logout" class="fa fa-sign-out fa-lg" aria-hidden="true" alt="Logout")
 
 
 </template>
 
 <script>
 import { mapState } from "vuex";
+import { userKey } from '@/global'
+
 
 export default {
   name: "Menu",
@@ -66,6 +71,9 @@ export default {
       // console.log('isHome = ' + this.isHome)
       // console.log('isQuem = ' + this.isQuem)
       console.log(e);
+    },
+    logOut(){
+      localStorage.removeItem(userKey)
     }
   }
 };
