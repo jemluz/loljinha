@@ -15,6 +15,7 @@
 
                         div(class="product_extra product_sale" v-for='categoria in categorias')
                             a(href="categories.html" v-if='categoria.id === produto.categoriaId ')  {{ categoria.descricao }}
+                            a(v-else) não tem nada aqui
 
                         div.product_content
                             div.product_title 
@@ -40,7 +41,7 @@ export default {
         loadProdutos() {
             // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
             axios.get(`${baseApiUrl}/produtos`).then(resposta => {
-                this.produtos = resposta.data 
+                this.produtos = resposta.data   
             })
         },
         loadCategorias() {
@@ -50,7 +51,6 @@ export default {
             })
         },
         func(index) {
-            // console.log(this.produtos[index].id)
             this.$store.commit('setProdutoId', this.produtos[index].id)
         }
     },
