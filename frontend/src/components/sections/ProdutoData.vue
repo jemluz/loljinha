@@ -32,6 +32,7 @@
                   div.form-group
                     input(
                       type="text" 
+                      name='descricao'
                       class="form-control" 
                       placeholder="Qual é o produto?"
                       v-model='produto.descricao'
@@ -42,6 +43,7 @@
                   div.form-group
                     input(
                       type="text" 
+                      name='preco'
                       class="form-control" 
                       placeholder="...e o preço?"
                       v-model='produto.preco'
@@ -53,6 +55,7 @@
                     label Ah! Tem a categoria também!
                     select( 
                       class="form-control"  
+                      name='categoria'
                       v-model='produto.categoriaId' 
                       :readonly='mode === "remove"' 
                       required
@@ -61,7 +64,7 @@
 
                   div.form-group                  
                     label(for="exampleFormControlFile1") Mande fotos do seu produto, vai ficar melhor!
-                    input(type="file" class="form-control-file mb-3" name='fotoPath' @change="onFileChange" id="exampleFormControlFile1" ref="fotoPath")
+                    input(type="file" name='imagem' class="form-control-file mb-3" @change="onFileChange" id="exampleFormControlFile1" ref="fotoPath")
 
                   div.form-group  
                     input(
@@ -126,11 +129,12 @@ export default {
   data: function() {
     return {
       mode: 'save', 
-      produto: {},
+      produto: { },
       produtos: [],
       categorias: [],
       selectedImage: null,
       edit: false,
+      img: ''
     }
   },
   methods: {
@@ -182,8 +186,23 @@ export default {
       */
       const method = this.produto.id ? 'put' : 'post'
       const id = this.produto.id ? `/${ this.produto.id }` : ''
-      axios[method](`${baseApiUrl}/produtos${id}`, this.produto).then(() => {this.$toasted.global.defaultSucess()
+
+      // const form = new FormData()
+
+      // const files = this.$refs.fotoPath.files
+      // console.log(files)
+      // for (let i = 0; i < files.length; i++) {
+      //   form.append(files[i].name, files[i])
+      // }
+
+      // form.append('descricao', this.produto.descricao)
+      // form.append('preco', this.produto.preco)
+      // form.append('categoria', this.produto.categoriaId)
+
+      axios[method](`${baseApiUrl}/produtos${id}`, this.produto)
+        .then(() => {this.$toasted.global.defaultSucess()
           this.reset()
+          console.log(oi)
         })
         .catch(showError)
     },

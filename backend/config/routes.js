@@ -45,7 +45,7 @@ module.exports = app => {
     .post(app.api.produto.saveProduto)
 
   app.route('/produtos/:id')
-    .all(app.config.passport.authenticate())
+    // .all(app.config.passport.authenticate())
     .put(app.api.produto.saveProduto)
     .get(app.api.produto.getProdutoById)
     .delete(app.api.produto.removeProduto)

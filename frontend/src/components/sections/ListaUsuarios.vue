@@ -17,11 +17,11 @@
         th.pd-left.pd-right {{ user.senha }}
         th(
           class='pd-left.pd-right'
-          v-if='user.isFuncionario'
+          v-if='user.isFuncionario === true'
           ) Funcionário
         th(
           class='pd-left.pd-right'
-          v-if='!user.isFuncionario'          
+          v-if='user.isFuncionario === false'          
           ) Cliente
         th.pd-left.pd-right {{ user.salario }}
         th.pd-top.pd-right   
