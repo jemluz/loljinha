@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 export const userKey = '__loljinha_user'
+export const carrinho = []
 export const baseApiUrl = 'http://localhost:3000'
 
 export function showError(e) {
@@ -13,4 +14,4 @@ export function showError(e) {
   }
 }
 
-export default { baseApiUrl, showError, userKey }
+export default { baseApiUrl, showError, userKey, carrinho }

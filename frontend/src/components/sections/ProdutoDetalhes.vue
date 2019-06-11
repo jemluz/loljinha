@@ -1,18 +1,5 @@
 <template lang='pug'>
     div
-        div.home
-            div.home_container
-                div(class="home_background" style="background-image:url(images/categories.jpg)")
-                div.home_content_container
-                    div.container
-                        div.row
-                            div.col
-                                div.home_content
-                                    div.home_titleSmart Phones
-                                        span .
-                                    div.home_text
-                                        p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum luctus.
-
         div.product_details
             div.container
                 div(class="row details_row")
@@ -64,8 +51,8 @@
                                         div(id="quantity_dec_button" class="quantity_dec quantity_control")
                                             i(class="fa fa-chevron-down" aria-hidden="true")
 
-                                div(class="button cart_button")
-                                    router-link(to="#") Add to cart
+                                div(class="button cart_button" @click="addToCart")
+                                    router-link(to="") Add to cart
 
                 div(class="row description_row")
                     div.col
@@ -102,31 +89,11 @@
                                         router-link(to="product.html") Smart Phone
                                     div.product_price $670
 
-        <!-- Newsletter -->
-
-        div.newsletter
-            div.container
-                div.row
-                    div.col
-                        div.newsletter_border
-                    
-                div.row
-                    div(class="col-lg-8 offset-lg-2")
-                        div(class="newsletter_content text-center")
-                            div.newsletter_titleSubscribe to our newsletter 
-                            div.newsletter_text
-                                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros
-
-                            div.newsletter_form_container
-                                form(action="#" id="newsletter_form" class="newsletter_form")
-                                    input(type="email" class="newsletter_input" required="required")
-                                    button(class="newsletter_button trans_200")
-                                        span Subscribe
 
 </template>
 
 <script>
-import { baseApiUrl } from '@/global'
+import { baseApiUrl, carrinho } from '@/global'
 import axios from 'axios'
 
 export default {
@@ -141,14 +108,18 @@ export default {
         loadProduto () {
             const id = `/${ this.$store.state.produtoId }`
             axios.get(`${baseApiUrl}/produtos${id}`).then(resposta => { this.produto = resposta.data } )
-            console.log('oi')
         },
         loadCategorias() {
             // utiliza uma url pra fazer uma requisição com o axios e carregar um array de clientes
             axios.get(`${baseApiUrl}/categorias`).then(resposta => {
                 this.categorias = resposta.data
-                console.log('oaii')
             })
+        },
+        addToCart() {
+            this.$emit('add-to-cart', this.$store.state.produtoId)
+            carrinho.push(this.produto)
+            localStorage.setItem('carrinho', carrinho)
+            console.log(carrinho)
         }
     },
     mounted() {
@@ -158,6 +129,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss'>
+
+.products { margin-bottom: 300px; }
 
 </style>

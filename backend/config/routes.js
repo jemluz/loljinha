@@ -16,7 +16,8 @@ module.exports = app => {
   app.post('/validateToken', app.api.auth.validateToken)
   app.get('/produtos', app.api.produto.getProduto)
   app.get('/categorias', app.api.categoria.getCategoria)
-
+  app.get('/produtos/:id', app.api.produto.getProdutoById)
+  
   //protegidas
   app.route('/usuarios')
     // .all(app.config.passport.authenticate())
@@ -41,13 +42,12 @@ module.exports = app => {
 
 
   app.route('/produtos')
-    // .all(app.config.passport.authenticate())
+    .all(app.config.passport.authenticate())
     .post(app.api.produto.saveProduto)
 
   app.route('/produtos/:id')
-    // .all(app.config.passport.authenticate())
+    .all(app.config.passport.authenticate())
     .put(app.api.produto.saveProduto)
-    .get(app.api.produto.getProdutoById)
     .delete(app.api.produto.removeProduto)
 
   app.route('/produtos/:cat')
