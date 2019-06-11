@@ -17,10 +17,10 @@ module.exports = app => {
   app.get('/produtos', app.api.produto.getProduto)
   app.get('/categorias', app.api.categoria.getCategoria)
   app.get('/produtos/:id', app.api.produto.getProdutoById)
-  
+
   //protegidas
   app.route('/usuarios')
-    // .all(app.config.passport.authenticate())
+    .all(app.config.passport.authenticate())
     .get(app.api.usuario.getUser)
   
   app.route('/usuarios/:login')
@@ -40,7 +40,6 @@ module.exports = app => {
     .get(app.api.categoria.getCategoriaById)
     .delete(app.api.categoria.removeCategoria)
 
-
   app.route('/produtos')
     .all(app.config.passport.authenticate())
     .post(app.api.produto.saveProduto)
@@ -52,7 +51,6 @@ module.exports = app => {
 
   app.route('/produtos/:cat')
     .get(app.api.produto.getProdutoByCat)
-
 
 }
 

@@ -164,7 +164,7 @@ export default {
 
 .alternar { display: flex; flex-direction: row; padding: 40px; text-decoration: none; 
   p:hover { color: #7971ea; }
-  span { padding: 7px; color: #7971ea;}}
+  span { padding: 7px; color: #7971ea;} }
 
 .bt-edit,
 .bt-remove {

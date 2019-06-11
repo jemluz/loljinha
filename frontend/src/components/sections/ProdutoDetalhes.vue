@@ -25,9 +25,15 @@
                     <!-- Product Content -->
                     div.col-lg-6 
                         div.details_content 
-                            div.details_name {{ produto.descricao }}
-                            div.details_discount R$ {{ produto.preco }}
-                            div.details_price R$ {{ produto.preco }}
+                            input(
+                                class='details_name'
+                                type="text" 
+                                name='descricao'
+                                v-model='produto.descricao'
+                                required)
+
+                            div.price_div
+                                p R$ #[input(class='details_price' type="text"  name='descricao' v-model='produto.preco' required :readyonly='mode === "view"')]
 
                             <!-- In Stock -->
                             div.in_stock_container
@@ -53,6 +59,9 @@
 
                                 div(class="button cart_button" @click="addToCart")
                                     router-link(to="") Add to cart
+
+                                div(class="button cart_button edit_btn" @click='editProduto(produto, "edit", true)')
+                                    router-link(to='') #[i(class='fa fa-pencil fa-lg')]
 
                 div(class="row description_row")
                     div.col
@@ -101,7 +110,9 @@ export default {
     data: function() {
         return {
             categorias: [],
-            produto: {}
+            produto: {},
+            edit: false,
+            mode: 'view'
         }
     },
     methods: {
@@ -120,6 +131,20 @@ export default {
             carrinho.push(this.produto)
             localStorage.setItem('carrinho', carrinho)
             console.log(carrinho)
+        },
+        editProduto(produto, mode = 'edit', edit = 'true') {
+            this.mode = mode
+            this.edit = edit
+            this.produto = { ...produto }
+        },
+        update() {
+            const id = this.produto.id
+            axios.put(`${baseApiUrl}/produtos${id}`, this.produto)
+                .then(() => {this.$toasted.global.defaultSucess()
+                    this.reset()
+                    console.log(oi)
+                })
+                .catch(showError)
         }
     },
     mounted() {
@@ -130,7 +155,10 @@ export default {
 </script>
 
 <style lang='scss'>
-
 .products { margin-bottom: 300px; }
 
+.details_content input { border: none;}
+
+.edit_btn { width: 60px;
+    i { margin-top: 20px; } }
 </style>

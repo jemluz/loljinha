@@ -17,12 +17,12 @@ export default {
   components: { Nav, Content, Footer },
   computed: mapState(['isFuncionario', 'user']),
   methods: {
-    
+
   }
 };
 </script>
 
 
 <style lang="scss">
-a:hover { text-decoration: none; }
+a:hover { text-decoration: none !important; }
 </style>

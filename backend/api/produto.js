@@ -10,7 +10,7 @@ module.exports = app => {
       existsOrError(produto.descricao, 'Descrição não inserida.')
       existsOrError(produto.preco, 'Preço não inserido.')
       existsOrError(produto.categoriaId, 'Categoria não inserida.')
-      existsOrError(produto.fotoPath, 'Fotos não adicionadas.')
+      existsOrError(produto.fotoPath, 'Fotos não adicionadas.')  
 
       const categoriaFromDB = await
         app.db('categoria')
